@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ScaleChem Consulting</title>
+  <title>ScaleChem </title>
   <meta name="description" content="Process development · Scale-up · BEP · Tech DD" />
   <link rel="icon" href="favicon.ico" />
-  <!-- ✅ Tailwind CSS CDN -->
+  <!-- Tailwind CSS (CDN, no build needed) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .hero-fallback { background: linear-gradient(180deg,#0f172a,#1e293b); }
@@ -14,12 +14,13 @@
   </style>
 </head>
 <body class="min-h-screen text-slate-900 scroll-smooth">
+
   <!-- Header -->
   <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
     <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
       <a href="#home" class="flex items-center gap-3">
         <img src="logo.png" alt="ScaleChem Logo" class="h-8 w-auto" onerror="this.style.display='none'">
-        <span class="font-semibold text-lg tracking-tight text-blue-700">ScaleChem Consulting</span>
+        <span class="font-semibold text-lg tracking-tight text-blue-700">ScaleChem</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm text-slate-700">
         <a href="#home"  class="hover:text-blue-700">Home</a>
@@ -32,7 +33,8 @@
       <div class="flex items-center gap-2">
         <button id="langBtn" class="rounded-xl border border-slate-300 bg-white px-3 py-1 text-sm hover:bg-slate-100">한국어</button>
         <button id="menuBtn" class="md:hidden rounded-xl border border-slate-300 bg-white p-2 hover:bg-slate-100" aria-expanded="false" aria-controls="mnav">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <span class="sr-only">Menu</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
       </div>
     </div>
@@ -50,7 +52,7 @@
 
   <!-- Hero -->
   <section id="home" class="relative h-[88vh] flex flex-col items-center justify-center text-center overflow-hidden">
-    <img src="hero.jpg" alt="Industrial background" class="absolute inset-0 w-full h-full object-cover opacity-70"
+    <img src="Hero.png" alt="Industrial background" class="absolute inset-0 w-full h-full object-cover opacity-70"
          onerror="this.remove();document.getElementById('heroBox').classList.add('hero-fallback');" />
     <div id="heroBox" class="absolute inset-0"></div>
     <div class="absolute inset-0 backdrop"></div>
@@ -58,7 +60,7 @@
       <img src="logo.png" alt="ScaleChem Logo" class="h-20 mx-auto mb-8" onerror="this.style.display='none'">
       <h1 class="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight"
           data-en="From Pilot to Commercial: Bridging Innovation & Scale-Up"
-          data-kr="From Pilot to Commercial: 기술개발 / 엔지니어링 / 스케일업">
+          data-kr-html="From Pilot to Commercial:<br/>기술개발 / 엔지니어링 / 스케일업">
         From Pilot to Commercial: Bridging Innovation & Scale-Up
       </h1>
       <p class="text-base sm:text-lg text-slate-100 mb-8"
@@ -90,41 +92,112 @@
     </p>
   </section>
 
-  <!-- Services -->
+  <!-- Services (Enhanced) -->
   <section id="services" class="py-20 bg-white text-center text-slate-800">
     <h2 class="text-3xl font-bold mb-6" data-en="Our Services" data-kr="주요 서비스">Our Services</h2>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
+    <p class="max-w-3xl mx-auto text-slate-600 mb-10"
+       data-en="Fixed-scope proposals after a short discovery call. Deliverables and timelines clearly defined."
+       data-kr="짧은 디스커버리 콜 후 범위 확정형 제안. 산출물·일정·고정가를 명확히 제시합니다.">
+       Fixed-scope proposals after a short discovery call. Deliverables and timelines clearly defined.
+    </p>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
+
+      <!-- 1 -->
       <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2" data-en="Pilot Design & Scale-Up" data-kr="파일럿 설계 및 스케일업">Pilot Design & Scale-Up</h3>
-        <p class="text-sm text-slate-700"
-           data-en="Optimized pilot plant design for process validation and data acquisition."
-           data-kr="공정 검증과 데이터 확보를 위한 최적화된 파일럿 플랜트 설계.">
-           Optimized pilot plant design for process validation and data acquisition.
-        </p>
+        <h3 class="font-semibold mb-2">🚀 <span data-en="Pilot Design & Scale-Up" data-kr="파일럿 설계 · 스케일업">Pilot Design & Scale-Up</span></h3>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li data-en="Concept → PFD/P&ID → utilities sizing" data-kr="컨셉 → PFD/P&ID → 유틸리티 산정">Concept → PFD/P&ID → utilities sizing</li>
+          <li data-en="Cycle design, sampling, DoE for scale-up" data-kr="사이클 설계·샘플링·DoE 기반 스케일업">Cycle design, sampling, DoE for scale-up</li>
+          <li data-en="Pilot KPIs & scale-up risk register" data-kr="파일럿 KPI 및 스케일업 리스크 레지스터">Pilot KPIs & scale-up risk register</li>
+        </ul>
       </div>
+
+      <!-- 2 -->
       <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2" data-en="Basic Engineering Package (BEP)" data-kr="기본 엔지니어링 패키지(BEP)">Basic Engineering Package (BEP)</h3>
-        <p class="text-sm text-slate-700"
-           data-en="BEP for seamless transition from pilot to commercial stage."
-           data-kr="파일럿에서 상업단계로의 원활한 전환을 위한 BEP 작성.">
-           BEP for seamless transition from pilot to commercial stage.
-        </p>
+        <h3 class="font-semibold mb-2">📦 <span data-en="Basic Engineering Package (BEP)" data-kr="기본 엔지니어링 패키지(BEP)">Basic Engineering Package (BEP)</span></h3>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li data-en="Process narratives, MB/EB, equipment datasheets" data-kr="공정기술서·물질/열수지·장치 데이터시트">Process narratives, MB/EB, equipment datasheets</li>
+          <li data-en="Line list, PSV sizing, utility balance" data-kr="라인리스트·PSV 용량 산정·유틸리티 밸런스">Line list, PSV sizing, utility balance</li>
+          <li data-en="CapEx/OpEx model & class-4/5 estimate" data-kr="CapEx/OpEx 모델 및 개략견적(Class 4/5)">CapEx/OpEx model & class-4/5 estimate</li>
+        </ul>
       </div>
+
+      <!-- 3 -->
       <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2" data-en="Process Simulation & Optimization" data-kr="공정 시뮬레이션 및 최적화">Process Simulation & Optimization</h3>
-        <p class="text-sm text-slate-700"
-           data-en="Aspen Plus / Pro-II / HYSYS based modeling and optimization."
-           data-kr="Aspen Plus / Pro-II / HYSYS 기반 공정 모델링 및 최적화.">
-           Aspen Plus / Pro-II / HYSYS based modeling and optimization.
-        </p>
+        <h3 class="font-semibold mb-2">🧪 <span data-en="Process Simulation & Optimization" data-kr="공정 시뮬레이션 · 최적화">Process Simulation & Optimization</span></h3>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li data-en="Aspen Plus / PRO-II / HYSYS models" data-kr="Aspen Plus / PRO-II / HYSYS 모델">Aspen Plus / PRO-II / HYSYS models</li>
+          <li data-en="Sensitivity & debottlenecking studies" data-kr="민감도·디바틀네킹 스터디">Sensitivity & debottlenecking studies</li>
+          <li data-en="Energy & yield improvement roadmap" data-kr="에너지·수율 개선 로드맵">Energy & yield improvement roadmap</li>
+        </ul>
       </div>
+
+      <!-- 4 -->
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2">🛡️ <span data-en="Safety & Regulatory Readiness" data-kr="안전 · 규제 대응">Safety & Regulatory Readiness</span></h3>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li data-en="PSM (12 elements), HAZOP/LOPA, MOC system" data-kr="PSM(12요소), HAZOP/LOPA, MOC 체계 구축">PSM (12 elements), HAZOP/LOPA, MOC system</li>
+          <li data-en="KGS design approval support" data-kr="KGS 설계승인 지원">KGS design approval support</li>
+          <li data-en="PSSR checklist & start-up readiness" data-kr="PSSR 체크리스트·가동 준비도">PSSR checklist & start-up readiness</li>
+        </ul>
+      </div>
+
+      <!-- 5 -->
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2">⚙️ <span data-en="Commissioning & Troubleshooting" data-kr="시운전 · 트러블슈팅">Commissioning & Troubleshooting</span></h3>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li data-en="Start-up SOPs, SAT, ramp-up playbook" data-kr="Start-up SOP·SAT·램프업 플레이북">Start-up SOPs, SAT, ramp-up playbook</li>
+          <li data-en="Root-cause analysis & corrective actions" data-kr="원인분석(RCA)·개선조치">Root-cause analysis & corrective actions</li>
+          <li data-en="OEE & throughput stabilization" data-kr="OEE 및 처리량 안정화">OEE & throughput stabilization</li>
+        </ul>
+      </div>
+
+      <!-- 6 -->
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2">🔋 <span data-en="Battery Material Process Development" data-kr="이차전지 소재 공정 개발">Battery Material Process Development</span></h3>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li data-en="Pilot development & BEP for scale-up" data-kr="스케일업을 위한 파일럿 개발·BEP">Pilot development & BEP for scale-up</li>
+          <li data-en="Silicon anode, CNT additives, slurry/thermal units" data-kr="실리콘 음극·CNT 도전재·슬러리/열처리">Silicon anode, CNT additives, slurry/thermal units</li>
+          <li data-en="Quality KPIs & validation protocol" data-kr="품질 KPI·검증 프로토콜">Quality KPIs & validation protocol</li>
+        </ul>
+      </div>
+
+      <!-- 7 -->
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2">🧭 <span data-en="Technology Due Diligence (Tech DD)" data-kr="기술 실사(Tech DD)">Technology Due Diligence (Tech DD)</span></h3>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li data-en="Scalability, reliability, TRL verification" data-kr="확장성·신뢰성·TRL 검증">Scalability, reliability, TRL verification</li>
+          <li data-en="CapEx/OpEx & unit economics checks" data-kr="CapEx/OpEx·단위경제성 검토">CapEx/OpEx & unit economics checks</li>
+          <li data-en="Red-flag memo & actionable roadmap" data-kr="레드플래그 메모·액션 로드맵">Red-flag memo & actionable roadmap</li>
+        </ul>
+      </div>
+
+      <!-- 8 -->
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2">📚 <span data-en="Documentation & Training" data-kr="문서화 · 트레이닝">Documentation & Training</span></h3>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li data-en="Template pack: PFD/P&ID, HAZOP, MOC, PSSR" data-kr="템플릿 팩: PFD/P&ID, HAZOP, MOC, PSSR">Template pack: PFD/P&ID, HAZOP, MOC, PSSR</li>
+          <li data-en="Operator & engineer workshops" data-kr="운전·엔지니어 워크숍">Operator & engineer workshops</li>
+          <li data-en="Handover binder & run-book" data-kr="핸드오버 바인더·런북">Handover binder & run-book</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="mt-10">
+      <a href="#contact" class="inline-block px-5 sm:px-6 py-3 rounded-xl bg-blue-700 hover:bg-blue-600 text-white font-semibold shadow-md transition"
+         data-en="Request a Scope & Quote" data-kr="범위/견적 문의하기">
+         Request a Scope & Quote
+      </a>
     </div>
   </section>
 
-  <!-- ✅ Projects (with Battery case) -->
+  <!-- Projects -->
   <section id="projects" class="py-20 bg-slate-50 text-center text-slate-800">
     <h2 class="text-3xl font-bold mb-6" data-en="Projects & Case Studies" data-kr="프로젝트 및 사례">Projects & Case Studies</h2>
     <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
+
       <div class="p-6 bg-white rounded-xl border border-slate-200 shadow-sm text-left">
         <h3 class="font-semibold mb-2 text-blue-700"
             data-en="Petrochemical & Specialty Gas Optimization"
@@ -163,6 +236,7 @@
            Pilot development and BEP for scaling advanced battery materials.
         </p>
       </div>
+
     </div>
   </section>
 
@@ -216,16 +290,28 @@
 
   <!-- Script -->
   <script>
+    // year
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile menu
     const menuBtn=document.getElementById('menuBtn');
     const mnav=document.getElementById('mnav');
     menuBtn.addEventListener('click',()=>{mnav.classList.toggle('hidden')});
     mnav.addEventListener('click',e=>{if(e.target.tagName==='A')mnav.classList.add('hidden')});
+
+    // language (supports html content via data-*-html)
     let lang='en';
     const langBtn=document.getElementById('langBtn');
-    const transEls=Array.from(document.querySelectorAll('[data-en][data-kr]'));
+    const transEls=Array.from(document.querySelectorAll('[data-en],[data-kr],[data-en-html],[data-kr-html]'));
     function applyLang(){
-      transEls.forEach(el=>{el.textContent=el.getAttribute(lang==='en'?'data-en':'data-kr')});
+      transEls.forEach(el=>{
+        const htmlKey=(lang==='en')?'data-en-html':'data-kr-html';
+        const textKey=(lang==='en')?'data-en':'data-kr';
+        const html=el.getAttribute(htmlKey);
+        const txt=el.getAttribute(textKey);
+        if(html){el.innerHTML=html;}
+        else if(txt){el.textContent=txt;}
+      });
       langBtn.textContent=(lang==='en')?'한국어':'English';
       document.documentElement.lang=(lang==='en')?'en':'ko';
     }
@@ -233,3 +319,4 @@
     applyLang();
   </script>
 </body>
+</html>
