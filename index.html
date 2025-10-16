@@ -1,81 +1,245 @@
-import React from "react";
-<h3 className="font-semibold mb-2">파일럿 설계 및 스케일업</h3>
-<p className="text-sm text-gray-700">공정 검증과 데이터 확보를 위한 최적화된 파일럿 플랜트 설계.</p>
-</div>
-<div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-<h3 className="font-semibold mb-2">기본 엔지니어링 패키지(BEP)</h3>
-<p className="text-sm text-gray-700">파일럿에서 상업단계로의 원활한 전환을 위한 BEP 작성.</p>
-</div>
-<div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-<h3 className="font-semibold mb-2">공정 시뮬레이션 및 최적화</h3>
-<p className="text-sm text-gray-700">Aspen Plus / Pro-II / HYSYS 기반 공정 모델링 및 최적화.</p>
-</div>
-</div>
-</section>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ScaleChem Consulting</title>
+  <meta name="description" content="Process development · Scale-up · BEP · Tech DD" />
+  <link rel="icon" href="favicon.ico" />
+  <!-- Tailwind CDN (빌드 불필요) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 이미지 없을 때도 보기 좋게 */
+    .hero-fallback { background: linear-gradient(180deg,#0f172a, #1e293b); }
+    .backdrop { background: linear-gradient(to bottom, rgba(0,0,0,.5), rgba(0,0,0,.3), rgba(0,0,0,.7)); }
+  </style>
+</head>
+<body class="min-h-screen text-slate-900 scroll-smooth">
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+      <a href="#home" class="flex items-center gap-3">
+        <img src="logo.png" alt="ScaleChem Logo" class="h-8 w-auto" onerror="this.style.display='none'">
+        <span class="font-semibold text-lg tracking-tight text-blue-700">ScaleChem Consulting</span>
+      </a>
+      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-700">
+        <a href="#home"  class="hover:text-blue-700">Home</a>
+        <a href="#about" class="hover:text-blue-700">About</a>
+        <a href="#services" class="hover:text-blue-700">Services</a>
+        <a href="#projects" class="hover:text-blue-700">Projects</a>
+        <a href="#techdd" class="hover:text-blue-700">Tech DD</a>
+        <a href="#contact" class="hover:text-blue-700">Contact</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button id="langBtn" class="rounded-xl border border-slate-300 bg-white px-3 py-1 text-sm hover:bg-slate-100">
+          한국어
+        </button>
+        <button id="menuBtn" class="md:hidden rounded-xl border border-slate-300 bg-white p-2 hover:bg-slate-100" aria-expanded="false" aria-controls="mnav">
+          <span class="sr-only">Menu</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700">
+            <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mnav" class="hidden md:hidden border-t border-slate-200 bg-white">
+      <ul class="max-w-6xl mx-auto p-4 grid gap-2 text-sm">
+        <li><a href="#home" class="block py-2">Home</a></li>
+        <li><a href="#about" class="block py-2">About</a></li>
+        <li><a href="#services" class="block py-2">Services</a></li>
+        <li><a href="#projects" class="block py-2">Projects</a></li>
+        <li><a href="#techdd" class="block py-2">Tech DD</a></li>
+        <li><a href="#contact" class="block py-2">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <!-- Home -->
+  <section id="home" class="relative h-[88vh] flex flex-col items-center justify-center text-center overflow-hidden">
+    <img src="hero.jpg" alt="Industrial background"
+         class="absolute inset-0 w-full h-full object-cover opacity-70"
+         onerror="this.remove(); document.getElementById('heroBox').classList.add('hero-fallback');" />
+    <div id="heroBox" class="absolute inset-0"></div>
+    <div class="absolute inset-0 backdrop"></div>
+    <div class="relative z-10 text-white max-w-3xl px-6">
+      <img src="logo.png" alt="ScaleChem Logo" class="h-20 mx-auto mb-8" onerror="this.style.display='none'">
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight"
+          data-en="From Pilot to Commercial: Bridging Innovation & Scale-Up"
+          data-kr="From Pilot to Commercial: 기술개발 / 엔지니어링 / 스케일업">
+        From Pilot to Commercial: Bridging Innovation & Scale-Up
+      </h1>
+      <p class="text-base sm:text-lg text-slate-100 mb-8"
+         data-en="ScaleChem transforms innovative lab ideas into commercial-scale solutions. We support startups and SMEs across process development, scale-up, and basic engineering."
+         data-kr="ScaleChem은 실험실의 혁신을 산업화로 확장합니다. 연구개발부터 스케일업·기본설계까지 전 단계를 지원합니다.">
+        ScaleChem transforms innovative lab ideas into commercial-scale solutions. We support startups and SMEs across process development, scale-up, and basic engineering.
+      </p>
+      <div class="flex gap-3 sm:gap-4 justify-center">
+        <a href="#about" class="px-5 sm:px-6 py-3 rounded-xl bg-blue-700 hover:bg-blue-600 text-white font-semibold shadow-md transition"
+           data-en="Learn More" data-kr="자세히 보기">Learn More</a>
+        <a href="#contact" class="px-5 sm:px-6 py-3 rounded-xl bg-white hover:bg-slate-100 text-blue-700 font-semibold shadow-md transition"
+           data-en="Contact Us" data-kr="문의하기">Contact Us</a>
+      </div>
+    </div>
+  </section>
 
-{/* Projects Section */}
-<section id="projects" className="py-20 bg-slate-50 text-center text-gray-800">
-<h2 className="text-3xl font-bold mb-6">프로젝트 및 사례</h2>
-<div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
-<div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-<h3 className="font-semibold mb-2 text-blue-700">석유화학 및 특수가스 최적화</h3>
-<p className="text-sm text-gray-700">증류탑 성능개선 및 Compressor 최적화, MVR 패키지 엔지니어링을 통한 에너지 회수.</p>
-</div>
-<div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-<h3 className="font-semibold mb-2 text-blue-700">실리콘계 소재 개발</h3>
-<p className="text-sm text-gray-700">재생에너지 응용 실리콘계 소재 대형 프로젝트에 대한 FEED 및 TEA 수행.</p>
-</div>
-<div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-<h3 className="font-semibold mb-2 text-blue-700">이차전지 소재 개발</h3>
-<p className="text-sm text-gray-700">이차전지 고급 소재의 파일럿 공정 개발 및 BEP 수행.</p>
-</div>
-</div>
-</section>
+  <!-- About -->
+  <section id="about" class="py-20 bg-slate-50 text-center text-slate-800">
+    <h2 class="text-3xl font-bold mb-6" data-en="About ScaleChem" data-kr="회사 소개">About ScaleChem</h2>
+    <p class="max-w-3xl mx-auto text-lg mb-8"
+       data-en="ScaleChem provides engineering consulting specialized in process development, scale-up, and commercialization for chemical & material industries."
+       data-kr="ScaleChem은 화학·소재 산업의 공정 개발, 스케일업, 상업화에 특화된 엔지니어링 컨설팅을 제공합니다.">
+      ScaleChem provides engineering consulting specialized in process development, scale-up, and commercialization for chemical & material industries.
+    </p>
+    <p class="max-w-3xl mx-auto text-base"
+       data-en="Based in Jeonju, South Korea, we deliver practical engineering solutions for SMEs and startups."
+       data-kr="대한민국 전주를 기반으로 중소기업과 스타트업에 실질적인 엔지니어링 솔루션을 제공합니다.">
+      Based in Jeonju, South Korea, we deliver practical engineering solutions for SMEs and startups.
+    </p>
+  </section>
 
+  <!-- Services -->
+  <section id="services" class="py-20 bg-white text-center text-slate-800">
+    <h2 class="text-3xl font-bold mb-6" data-en="Our Services" data-kr="주요 서비스">Our Services</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2" data-en="Pilot Design & Scale-Up" data-kr="파일럿 설계 및 스케일업">Pilot Design & Scale-Up</h3>
+        <p class="text-sm text-slate-700"
+           data-en="Optimized pilot plant design for process validation and data acquisition."
+           data-kr="공정 검증과 데이터 확보를 위한 최적화된 파일럿 플랜트 설계.">
+           Optimized pilot plant design for process validation and data acquisition.
+        </p>
+      </div>
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2" data-en="Basic Engineering Package (BEP)" data-kr="기본 엔지니어링 패키지(BEP)">Basic Engineering Package (BEP)</h3>
+        <p class="text-sm text-slate-700"
+           data-en="BEP for seamless transition from pilot to commercial stage."
+           data-kr="파일럿에서 상업단계로의 원활한 전환을 위한 BEP 작성.">
+           BEP for seamless transition from pilot to commercial stage.
+        </p>
+      </div>
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2" data-en="Process Simulation & Optimization" data-kr="공정 시뮬레이션 및 최적화">Process Simulation & Optimization</h3>
+        <p class="text-sm text-slate-700"
+           data-en="Aspen Plus / Pro-II / HYSYS based modeling and optimization."
+           data-kr="Aspen Plus / Pro-II / HYSYS 기반 공정 모델링 및 최적화.">
+           Aspen Plus / Pro-II / HYSYS based modeling and optimization.
+        </p>
+      </div>
+    </div>
+  </section>
 
-{/* Tech DD Section */}
-<section id="techdd" className="py-20 bg-white text-center text-gray-900">
-<h2 className="text-3xl font-bold mb-6">기술 실사 (Tech DD)</h2>
-<p className="text-gray-600 max-w-3xl mx-auto mb-10">중소기업과 투자자를 위한 스케일업, 타당성, 리스크 중심의 종합 기술 실사 서비스를 제공합니다.</p>
-<div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
-<div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-<h3 className="font-semibold mb-2">주요 평가 항목</h3>
-<ul className="text-left text-sm text-gray-700 space-y-2">
-<li>• 파일럿 및 기본설계 검토</li>
-<li>• 공정 확장성 및 신뢰성 평가</li>
-<li>• CapEx/OpEx 모델링</li>
-<li>• 안전 및 규제 대응 준비도 분석</li>
-<li>• 기술성숙도(TRL) 검증</li>
-<li>• 리스크 기반 엔지니어링 검증</li>
-</ul>
-</div>
-<div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-<h3 className="font-semibold mb-2">진행 형태</h3>
-<ul className="text-left text-sm text-gray-700 space-y-2">
-<li>• 전문가 인터뷰 (1–2시간): 핵심 기술 인사이트 제공</li>
-<li>• 신속 실사 (5–10일): 투자자 대상 핵심 결과 보고</li>
-<li>• 정밀 실사 (3–6주): 기술 검증 및 종합 평가 보고서</li>
-</ul>
-</div>
-</div>
-</section>
+  <!-- Projects -->
+  <section id="projects" class="py-20 bg-slate-50 text-center text-slate-800">
+    <h2 class="text-3xl font-bold mb-6" data-en="Projects & Case Studies" data-kr="프로젝트 및 사례">Projects & Case Studies</h2>
+    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
+      <div class="p-6 bg-white rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2 text-blue-700"
+            data-en="Petrochemical & Specialty Gas Optimization"
+            data-kr="석유화학 및 특수가스 최적화">
+            Petrochemical & Specialty Gas Optimization
+        </h3>
+        <p class="text-sm text-slate-700"
+           data-en="Distillation revamp, compressor optimization, and energy recovery via MVR."
+           data-kr="증류탑 리밴프, 압축기 최적화, MVR 기반 에너지 회수.">
+           Distillation revamp, compressor optimization, and energy recovery via MVR.
+        </p>
+      </div>
+      <div class="p-6 bg-white rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2 text-blue-700"
+            data-en="Silicon-based Material Development"
+            data-kr="실리콘계 소재 개발">
+            Silicon-based Material Development
+        </h3>
+        <p class="text-sm text-slate-700"
+           data-en="FEED & TEA for large-scale silicon-based materials."
+           data-kr="대형 실리콘계 소재 프로젝트 FEED 및 TEA.">
+           FEED & TEA for large-scale silicon-based materials.
+        </p>
+      </div>
+    </div>
+  </section>
 
+  <!-- Tech DD -->
+  <section id="techdd" class="py-20 bg-white text-center text-slate-900">
+    <h2 class="text-3xl font-bold mb-6" data-en="Technology Due Diligence (Tech DD)" data-kr="기술 실사 (Tech DD)">Technology Due Diligence (Tech DD)</h2>
+    <p class="text-slate-600 max-w-3xl mx-auto mb-10"
+       data-en="Comprehensive technical assessments focusing on scalability, feasibility, and risk for SMEs and investors."
+       data-kr="중소기업과 투자자를 위한 스케일업·타당성·리스크 중심의 종합 기술 실사.">
+       Comprehensive technical assessments focusing on scalability, feasibility, and risk for SMEs and investors.
+    </p>
+    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2" data-en="Scope of Work" data-kr="주요 평가 항목">Scope of Work</h3>
+        <ul class="text-sm text-slate-700 space-y-2">
+          <li>• <span data-en="Pilot & BEP Review" data-kr="파일럿 및 기본설계 검토">Pilot & BEP Review</span></li>
+          <li>• <span data-en="Process Scalability & Reliability" data-kr="공정 확장성 및 신뢰성 평가">Process Scalability & Reliability</span></li>
+          <li>• <span data-en="CapEx/OpEx Modeling" data-kr="CapEx/OpEx 모델링">CapEx/OpEx Modeling</span></li>
+          <li>• <span data-en="Safety & Regulatory Readiness" data-kr="안전 및 규제 대응 준비도 분석">Safety & Regulatory Readiness</span></li>
+          <li>• <span data-en="Technology Readiness Level (TRL) Verification" data-kr="기술성숙도(TRL) 검증">Technology Readiness Level (TRL) Verification</span></li>
+          <li>• <span data-en="Risk-based Engineering Validation" data-kr="리스크 기반 엔지니어링 검증">Risk-based Engineering Validation</span></li>
+        </ul>
+      </div>
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
+        <h3 class="font-semibold mb-2" data-en="Engagement Types" data-kr="진행 형태">Engagement Types</h3>
+        <ul class="text-sm text-slate-700 space-y-2">
+          <li>• <span data-en="Expert Calls (1–2h): Targeted technical insights" data-kr="전문가 인터뷰 (1–2시간): 핵심 기술 인사이트">Expert Calls (1–2h): Targeted technical insights</span></li>
+          <li>• <span data-en="Rapid DD (5–10d): Summary findings for investors" data-kr="신속 실사 (5–10일): 핵심 결과 요약">Rapid DD (5–10d): Summary findings for investors</span></li>
+          <li>• <span data-en="Full DD (3–6w): Comprehensive technical validation" data-kr="정밀 실사 (3–6주): 종합 기술 검증">Full DD (3–6w): Comprehensive technical validation</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-{/* Contact Section */}
-<section id="contact" className="py-20 bg-slate-50 text-center text-gray-900">
-<h2 className="text-3xl font-bold mb-4">문의하기</h2>
-<p className="text-gray-600 mb-8">프로젝트 상담을 원하시면 연락주세요.</p>
-<div className="text-gray-700 space-y-2 mb-8">
-<div className="flex justify-center items-center gap-2">📧 cg0103.seo@gmail.com</div>
-<div className="flex justify-center items-center gap-2">📞 +82 10-2705-1473</div>
-</div>
-</section>
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-slate-50 text-center text-slate-900">
+    <h2 class="text-3xl font-bold mb-4" data-en="Contact Us" data-kr="문의하기">Contact Us</h2>
+    <p class="text-slate-600 mb-8"
+       data-en="Get in touch with our experts for project consultations."
+       data-kr="프로젝트 상담을 원하시면 연락주세요.">
+       Get in touch with our experts for project consultations.
+    </p>
+    <div class="text-slate-700 space-y-2 mb-8">
+      <div class="flex justify-center items-center gap-2">📧 <a class="underline" href="mailto:cg0103.seo@gmail.com">cg0103.seo@gmail.com</a></div>
+      <div class="flex justify-center items-center gap-2">📞 <a class="underline" href="tel:+821027051473">+82 10-2705-1473</a></div>
+    </div>
+    <footer class="pt-6 border-t border-slate-200 text-center text-sm text-slate-500 bg-transparent">
+      © <span id="year"></span> ScaleChem Consulting. All rights reserved.
+    </footer>
+  </section>
 
+  <script>
+    // 연도
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-<footer className="py-6 border-t border-slate-200 text-center text-sm text-gray-500 bg-white">
-© {new Date().getFullYear()} ScaleChem Consulting. All rights reserved.
-</footer>
-</div>
-);
-}
+    // 모바일 메뉴
+    const menuBtn = document.getElementById('menuBtn');
+    const mnav = document.getElementById('mnav');
+    menuBtn.addEventListener('click', () => {
+      const open = mnav.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    // 클릭 후 자동 닫힘
+    mnav.addEventListener('click', e => {
+      if (e.target.tagName === 'A') mnav.classList.add('hidden');
+    });
+
+    // 언어 토글 (영/한)
+    let lang = 'en';
+    const langBtn = document.getElementById('langBtn');
+    const transEls = Array.from(document.querySelectorAll('[data-en][data-kr]'));
+    function applyLang() {
+      transEls.forEach(el => {
+        el.textContent = el.getAttribute(lang === 'en' ? 'data-en' : 'data-kr');
+      });
+      langBtn.textContent = (lang === 'en') ? '한국어' : 'English';
+      document.documentElement.lang = (lang === 'en') ? 'en' : 'ko';
+    }
+    langBtn.addEventListener('click', () => {
+      lang = (lang === 'en') ? 'kr' : 'en';
+      applyLang();
+    });
+    applyLang();
+  </script>
+</body>
+</html>
