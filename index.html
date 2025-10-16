@@ -1,220 +1,81 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Mail, Phone, Factory, ShieldCheck, LineChart, FlaskConical, FileText, Globe2 } from "lucide-react";
+import React from "react";
+<h3 className="font-semibold mb-2">파일럿 설계 및 스케일업</h3>
+<p className="text-sm text-gray-700">공정 검증과 데이터 확보를 위한 최적화된 파일럿 플랜트 설계.</p>
+</div>
+<div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
+<h3 className="font-semibold mb-2">기본 엔지니어링 패키지(BEP)</h3>
+<p className="text-sm text-gray-700">파일럿에서 상업단계로의 원활한 전환을 위한 BEP 작성.</p>
+</div>
+<div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
+<h3 className="font-semibold mb-2">공정 시뮬레이션 및 최적화</h3>
+<p className="text-sm text-gray-700">Aspen Plus / Pro-II / HYSYS 기반 공정 모델링 및 최적화.</p>
+</div>
+</div>
+</section>
 
-const HERO_IMAGE = "/scalechem-hero-industrial.jpg";
-const SECTION_BG = "/scalechem-section-bg.jpg";
-const LOGO_IMAGE = "/scalechem-logo.png";
 
-export default function ScaleChem() {
-  const [lang, setLang] = useState<"en" | "kr">("en");
-  const t = (en: string, kr: string) => (lang === "en" ? en : kr);
+{/* Projects Section */}
+<section id="projects" className="py-20 bg-slate-50 text-center text-gray-800">
+<h2 className="text-3xl font-bold mb-6">프로젝트 및 사례</h2>
+<div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
+<div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
+<h3 className="font-semibold mb-2 text-blue-700">석유화학 및 특수가스 최적화</h3>
+<p className="text-sm text-gray-700">증류탑 성능개선 및 Compressor 최적화, MVR 패키지 엔지니어링을 통한 에너지 회수.</p>
+</div>
+<div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
+<h3 className="font-semibold mb-2 text-blue-700">실리콘계 소재 개발</h3>
+<p className="text-sm text-gray-700">재생에너지 응용 실리콘계 소재 대형 프로젝트에 대한 FEED 및 TEA 수행.</p>
+</div>
+<div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
+<h3 className="font-semibold mb-2 text-blue-700">이차전지 소재 개발</h3>
+<p className="text-sm text-gray-700">이차전지 고급 소재의 파일럿 공정 개발 및 BEP 수행.</p>
+</div>
+</div>
+</section>
 
-  // Contact form state & submit via mailto
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const to = "cg0103.seo@gmail.com";
-    const subject = encodeURIComponent(`${t("Website Inquiry", "웹사이트 문의")} - ${form.name}`);
-    const body = encodeURIComponent(
-      `${t("Name", "이름")}: ${form.name}\n${t("Email", "이메일")}: ${form.email}\n\n${t("Message", "메시지")}:\n${form.message}`
-    );
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-  };
 
-  return (
-    <div className="min-h-screen text-gray-900 scroll-smooth" data-testid="app-root">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
-        <div className="max-w-6xl mx-auto flex items-center justify-between p-4">
-          <motion.div className="flex items-center gap-3" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <img src={LOGO_IMAGE} alt="ScaleChem Logo" className="h-8 w-auto" />
-            <span className="font-semibold text-lg tracking-tight text-blue-700">ScaleChem Consulting</span>
-          </motion.div>
-          <motion.nav className="hidden md:flex items-center gap-6 text-sm text-gray-700" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }}>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#projects">Projects</a>
-            <a href="#techdd">Tech DD</a>
-            <a href="#contact">Contact</a>
-          </motion.nav>
-          <motion.div className="flex items-center gap-3" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 0.6 }}>
-            <button onClick={() => setLang(lang === "en" ? "kr" : "en")} className="rounded-xl border border-slate-300 bg-white px-3 py-1 text-sm hover:bg-slate-100">
-              {t("한국어", "English")}
-            </button>
-          </motion.div>
-        </div>
-      </header>
+{/* Tech DD Section */}
+<section id="techdd" className="py-20 bg-white text-center text-gray-900">
+<h2 className="text-3xl font-bold mb-6">기술 실사 (Tech DD)</h2>
+<p className="text-gray-600 max-w-3xl mx-auto mb-10">중소기업과 투자자를 위한 스케일업, 타당성, 리스크 중심의 종합 기술 실사 서비스를 제공합니다.</p>
+<div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
+<div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
+<h3 className="font-semibold mb-2">주요 평가 항목</h3>
+<ul className="text-left text-sm text-gray-700 space-y-2">
+<li>• 파일럿 및 기본설계 검토</li>
+<li>• 공정 확장성 및 신뢰성 평가</li>
+<li>• CapEx/OpEx 모델링</li>
+<li>• 안전 및 규제 대응 준비도 분석</li>
+<li>• 기술성숙도(TRL) 검증</li>
+<li>• 리스크 기반 엔지니어링 검증</li>
+</ul>
+</div>
+<div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
+<h3 className="font-semibold mb-2">진행 형태</h3>
+<ul className="text-left text-sm text-gray-700 space-y-2">
+<li>• 전문가 인터뷰 (1–2시간): 핵심 기술 인사이트 제공</li>
+<li>• 신속 실사 (5–10일): 투자자 대상 핵심 결과 보고</li>
+<li>• 정밀 실사 (3–6주): 기술 검증 및 종합 평가 보고서</li>
+</ul>
+</div>
+</div>
+</section>
 
-      {/* Home Section */}
-      <section id="home" className="relative h-[100vh] flex flex-col items-center justify-center text-center overflow-hidden">
-        <motion.img src={HERO_IMAGE} alt="Industrial background" className="absolute inset-0 w-full h-full object-cover opacity-70" initial={{ scale: 1.05, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.2, ease: "easeOut" }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70" />
-        <div className="relative z-10 text-white max-w-3xl px-6">
-          <motion.img src={LOGO_IMAGE} alt="ScaleChem Logo" className="h-20 mx-auto mb-8 drop-shadow-[0_0_25px_rgba(59,130,246,0.6)]" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} />
-          <motion.h1 className="text-5xl font-extrabold mb-6 leading-tight" initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-            {t("From Pilot to Commercial: Bridging Innovation & Scale-Up", "From Pilot to Commercial: 기술개발 / 엔지니어링 / 스케일업")}
-          </motion.h1>
-          <motion.p className="text-lg text-gray-100 mb-8" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 1 }}>
-            {t(
-              "We transform innovative laboratory ideas into commercial-scale solutions. ScaleChem supports startups and SMEs through every phase of process development, scale-up, and basic engineering.",
-              "ScaleChem은 실험실의 혁신적인 아이디어를 산업화 단계로 확장합니다. 연구개발부터 스케일업 및 기본설계까지 중소기업의 전 단계를 지원합니다."
-            )}
-          </motion.p>
-          <motion.div className="flex gap-4 justify-center" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 1 }}>
-            <a href="#about" className="px-6 py-3 rounded-xl bg-blue-700 hover:bg-blue-600 text-white font-semibold shadow-md transition">
-              {t("Learn More", "자세히 보기")}
-            </a>
-            <a href="#contact" className="px-6 py-3 rounded-xl bg-white hover:bg-slate-100 text-blue-700 font-semibold shadow-md transition">
-              {t("Contact Us", "문의하기")}
-            </a>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 bg-slate-50 text-center text-gray-800">
-        <h2 className="text-3xl font-bold mb-6">{t("About ScaleChem", "회사 소개")}</h2>
-        <p className="max-w-3xl mx-auto text-lg mb-8">{t("ScaleChem provides engineering consulting services specializing in process development, scale-up, and commercialization for chemical and material industries.", "ScaleChem은 화학 및 소재 산업의 공정 개발, 스케일업, 상업화에 특화된 엔지니어링 컨설팅 서비스를 제공합니다.")}</p>
-        <p className="max-w-3xl mx-auto text-base">{t("Based in Jeonju, South Korea, ScaleChem delivers practical engineering solutions for SMEs and startups.", "대한민국 전주에 기반을 두고 있으며, 중소기업과 스타트업을 위한 실질적인 엔지니어링 솔루션을 제공합니다.")}</p>
-      </section>
+{/* Contact Section */}
+<section id="contact" className="py-20 bg-slate-50 text-center text-gray-900">
+<h2 className="text-3xl font-bold mb-4">문의하기</h2>
+<p className="text-gray-600 mb-8">프로젝트 상담을 원하시면 연락주세요.</p>
+<div className="text-gray-700 space-y-2 mb-8">
+<div className="flex justify-center items-center gap-2">📧 cg0103.seo@gmail.com</div>
+<div className="flex justify-center items-center gap-2">📞 +82 10-2705-1473</div>
+</div>
+</section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 bg-white text-center text-gray-800">
-        <h2 className="text-3xl font-bold mb-6">{t("Our Services", "주요 서비스")}</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-            <Factory className="h-8 w-8 mx-auto text-blue-600 mb-3" />
-            <h3 className="font-semibold mb-2">{t("Pilot Design & Scale-Up", "파일럿 설계 및 스케일업")}</h3>
-            <p className="text-sm text-gray-700">{t("Design optimized pilot plants for process validation and data acquisition.", "공정 검증과 데이터 확보를 위한 최적화된 파일럿 플랜트 설계.")}</p>
-          </div>
-          <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-            <FlaskConical className="h-8 w-8 mx-auto text-blue-600 mb-3" />
-            <h3 className="font-semibold mb-2">{t("Basic Engineering Package (BEP)", "기본 엔지니어링 패키지(BEP)")}</h3>
-            <p className="text-sm text-gray-700">{t("Development of BEP for seamless transition from pilot to commercial phase.", "파일럿에서 상업단계로의 원활한 전환을 위한 BEP 작성.")}</p>
-          </div>
-          <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-            <LineChart className="h-8 w-8 mx-auto text-blue-600 mb-3" />
-            <h3 className="font-semibold mb-2">{t("Process Simulation & Optimization", "공정 시뮬레이션 및 최적화")}</h3>
-            <p className="text-sm text-gray-700">{t("Aspen Plus / Pro-II / HYSYS based process modeling and optimization.", "Aspen Plus / Pro-II / HYSYS 기반 공정 모델링 및 최적화.")}</p>
-          </div>
-        </div>
-      </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 bg-slate-50 text-center text-gray-800">
-        <h2 className="text-3xl font-bold mb-6">{t("Projects & Case Studies", "프로젝트 및 사례")}</h2>
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
-          <div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-            <h3 className="font-semibold mb-2 text-blue-700">{t("Petrochemical & Specialty Gas Optimization", "석유화학 및 특수가스 최적화")}</h3>
-            <p className="text-sm text-gray-700">{t("Distillation column revamp and compressor optimization; energy recovery via MVR package engineering.", "증류탑 성능개선 및 Compressor 최적화, MVR 패키지 엔지니어링을 통한 에너지 회수.")}</p>
-          </div>
-          <div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-            <h3 className="font-semibold mb-2 text-blue-700">{t("Silicon-based Material FEED Consulting", "실리콘계 소재 개발")}</h3>
-            <p className="text-sm text-gray-700">{t("FEED and TEA for large-scale silicon-based materials supporting renewable applications.", "재생에너지 응용 실리콘계 소재 대형 프로젝트에 대한 FEED 및 TEA 수행.")}</p>
-          </div>
-          <div className="p-6 bg-white rounded-xl border border-slate-200 shadow-sm">
-            <h3 className="font-semibold mb-2 text-blue-700">{t("Battery Material Process Development", "이차전지 소재 개발")}</h3>
-            <p className="text-sm text-gray-700">{t("Pilot process development and BEP for scaling advanced battery materials.", "이차전지 고급 소재의 파일럿 공정 개발 및 BEP 수행.")}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Tech DD Section */}
-      <section id="techdd" className="py-20 bg-white text-center text-gray-900">
-        <h2 className="text-3xl font-bold mb-6">{t("Technology Due Diligence (Tech DD)", "기술 실사 (Tech DD)")}</h2>
-        <p className="text-gray-600 max-w-3xl mx-auto mb-10">{t("Comprehensive technical assessments focusing on scalability, feasibility, and risk for SMEs and investors.", "중소기업과 투자자를 위한 스케일업, 타당성, 리스크 중심의 종합 기술 실사 서비스를 제공합니다.")}</p>
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
-          <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-            <Globe2 className="h-8 w-8 mx-auto text-blue-600 mb-3" />
-            <h3 className="font-semibold mb-2">{t("Scope of Work", "주요 평가 항목")}</h3>
-            <ul className="text-left text-sm text-gray-700 space-y-2">
-              <li>• {t("Pilot and BEP Review", "파일럿 및 기본설계 검토")}</li>
-              <li>• {t("Process Scalability and Reliability", "공정 확장성 및 신뢰성 평가")}</li>
-              <li>• {t("CapEx/OpEx Modeling", "CapEx/OpEx 모델링")}</li>
-              <li>• {t("Safety & Regulatory Readiness", "안전 및 규제 대응 준비도 분석")}</li>
-              <li>• {t("Technology Readiness Level (TRL) Verification", "기술성숙도(TRL) 검증")}</li>
-              <li>• {t("Risk-based Engineering Validation", "리스크 기반 엔지니어링 검증")}</li>
-            </ul>
-          </div>
-          <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm">
-            <FileText className="h-8 w-8 mx-auto text-blue-600 mb-3" />
-            <h3 className="font-semibold mb-2">{t("Engagement Types", "진행 형태")}</h3>
-            <ul className="text-left text-sm text-gray-700 space-y-2">
-              <li>• {t("Expert Calls (1–2h): Targeted technical insights", "전문가 인터뷰 (1–2시간): 핵심 기술 인사이트 제공")}</li>
-              <li>• {t("Rapid DD (5–10d): Summary findings for investors", "신속 실사 (5–10일): 투자자 대상 핵심 결과 보고")}</li>
-              <li>• {t("Full DD (3–6w): Comprehensive technical validation", "정밀 실사 (3–6주): 기술 검증 및 종합 평가 보고서")}</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-slate-50 text-center text-gray-900">
-        <h2 className="text-3xl font-bold mb-4">{t("Contact Us", "문의하기")}</h2>
-        <p className="text-gray-600 mb-8">{t("Get in touch with our experts for project consultations.", "프로젝트 상담을 원하시면 연락주세요.")}</p>
-        <div className="text-gray-700 space-y-2 mb-8">
-          <div className="flex justify-center items-center gap-2"><Mail className="h-5 w-5 text-blue-600" /> cg0103.seo@gmail.com</div>
-          <div className="flex justify-center items-center gap-2"><Phone className="h-5 w-5 text-blue-600" /> +82 10-2705-1473</div>
-        </div>
-        <form onSubmit={handleSubmit} className="max-w-xl mx-auto grid gap-4 text-left">
-          <div>
-            <label className="text-sm text-gray-600">{t("Name", "이름")}</label>
-            <input name="name" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" />
-          </div>
-          <div>
-            <label className="text-sm text-gray-600">{t("Email", "이메일")}</label>
-            <input type="email" name="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" />
-          </div>
-          <div>
-            <label className="text-sm text-gray-600">{t("Message", "메시지")}</label>
-            <textarea name="message" rows={4} value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required className="mt-1 w-full rounded-xl border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600" />
-          </div>
-          <button className="rounded-2xl bg-blue-600 text-white px-5 py-2.5 text-sm shadow hover:shadow-md" type="submit">{t("Send Email", "이메일 보내기")}</button>
-        </form>
-      </section>
-
-      <footer className="py-6 border-t border-slate-200 text-center text-sm text-gray-500 bg-white">
-        © {new Date().getFullYear()} ScaleChem Consulting. All rights reserved.
-      </footer>
-
-      {/* Dev Diagnostics: lightweight tests */}
-      <DevDiagnostics />
-    </div>
-  );
-}
-
-function DevDiagnostics() {
-  const [results, setResults] = useState<{ name: string; pass: boolean }[]>([]);
-
-  useEffect(() => {
-    const tests = [
-      { name: "Renders root", run: () => !!document.querySelector('[data-testid="app-root"]') },
-      { name: "Has Home", run: () => !!document.getElementById("home") },
-      { name: "Has About", run: () => !!document.getElementById("about") },
-      { name: "Has Services", run: () => !!document.getElementById("services") },
-      { name: "Has Projects", run: () => !!document.getElementById("projects") },
-      { name: "Has TechDD", run: () => !!document.getElementById("techdd") },
-      { name: "Has Contact", run: () => !!document.getElementById("contact") },
-      { name: "Has Logo", run: () => !!document.querySelector(`img[src='${LOGO_IMAGE}']`) },
-    ];
-    setResults(tests.map(t => ({ name: t.name, pass: !!t.run() })));
-  }, []);
-
-  if (typeof window === "undefined" || !window.location.hash.includes("dev")) return null;
-
-  return (
-    <div className="fixed bottom-4 right-4 max-w-sm rounded-2xl border border-slate-200 bg-white p-3 shadow-lg text-xs">
-      <div className="font-semibold mb-2">Dev Diagnostics</div>
-      <ul className="space-y-1">
-        {results.map(r => (
-          <li key={r.name} className={r.pass ? "text-green-700" : "text-red-700"}>
-            {r.pass ? "✔" : "✘"} {r.name}
-          </li>
-        ))}
-      </ul>
-      <div className="mt-2 text-gray-500">Append <code>#dev</code> to the URL to show this panel.</div>
-    </div>
-  );
+<footer className="py-6 border-t border-slate-200 text-center text-sm text-gray-500 bg-white">
+© {new Date().getFullYear()} ScaleChem Consulting. All rights reserved.
+</footer>
+</div>
+);
 }
