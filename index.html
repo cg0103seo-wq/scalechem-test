@@ -3,320 +3,786 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ScaleChem </title>
+  <title>ScaleChem - Process Development, Scale-Up, BEP, Tech DD</title>
   <meta name="description" content="Process development · Scale-up · BEP · Tech DD" />
-  <link rel="icon" href="favicon.ico" />
-  <!-- Tailwind CSS (CDN, no build needed) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M13 6h6M14 6v7l6 11a3 3 0 0 1-2.6 4.5h-9.8A3 3 0 0 1 5 24l6-11V6' fill='none' stroke='%232470e0' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M18 13l9-9m0 0h-6.5M27 4v6.5' fill='none' stroke='%2335d095' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   <style>
-    .hero-fallback { background: linear-gradient(180deg,#0f172a,#1e293b); }
-    .backdrop { background: linear-gradient(to bottom,rgba(0,0,0,.5),rgba(0,0,0,.3),rgba(0,0,0,.7)); }
+    :root {
+      --navy-900: #0a1425;
+      --navy-800: #0e1c33;
+      --navy-700: #16294a;
+      --blue-600: #2470e0;
+      --blue-500: #3b82f0;
+      --blue-100: #dbeafe;
+      --green-500: #35d095;
+      --green-600: #1fae7a;
+      --ink-900: #101828;
+      --ink-700: #344054;
+      --ink-500: #667085;
+      --line-200: #e4e9f0;
+      --bg-soft: #f5f7fb;
+      --radius: 16px;
+      --shadow-sm: 0 1px 2px rgba(16,24,40,.05);
+      --shadow-md: 0 8px 24px -6px rgba(16,24,40,.10), 0 2px 6px -2px rgba(16,24,40,.06);
+      --shadow-lg: 0 20px 44px -12px rgba(10,20,37,.22);
+      --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--ink-900);
+      background: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    section { scroll-margin-top: 76px; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== Header ===== */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,20,37,.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      transition: background .3s ease, border-color .3s ease, box-shadow .3s ease;
+    }
+    header.solid {
+      background: rgba(255,255,255,.86);
+      border-bottom: 1px solid var(--line-200);
+      box-shadow: var(--shadow-sm);
+    }
+    .hbar { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -.02em; color: #fff; transition: color .3s ease; }
+    header.solid .brand { color: var(--navy-800); }
+    .brand svg { width: 30px; height: 30px; flex: none; }
+    .brand .sc-scale { color: var(--blue-500); }
+    header.solid .brand .sc-scale { color: var(--blue-600); }
+    nav.main { display: flex; align-items: center; gap: 28px; }
+    nav.main a {
+      font-size: 14.5px; font-weight: 500; color: rgba(255,255,255,.78);
+      padding: 6px 0; position: relative; transition: color .25s ease;
+    }
+    nav.main a::after {
+      content: ""; position: absolute; left: 0; right: 100%; bottom: 0;
+      height: 2px; background: var(--green-500); border-radius: 2px;
+      transition: right .25s ease;
+    }
+    nav.main a:hover, nav.main a.active { color: #fff; }
+    nav.main a:hover::after, nav.main a.active::after { right: 0; }
+    header.solid nav.main a { color: var(--ink-500); }
+    header.solid nav.main a:hover, header.solid nav.main a.active { color: var(--navy-800); }
+    .hactions { display: flex; align-items: center; gap: 10px; }
+    .lang-btn {
+      font-family: var(--font); cursor: pointer; font-size: 13px; font-weight: 600;
+      color: #fff; background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.25); border-radius: 999px;
+      padding: 6px 14px; transition: all .25s ease;
+    }
+    .lang-btn:hover { background: rgba(255,255,255,.22); }
+    header.solid .lang-btn { color: var(--ink-700); background: #fff; border-color: var(--line-200); }
+    header.solid .lang-btn:hover { border-color: var(--blue-600); color: var(--blue-600); }
+    .menu-btn {
+      display: none; cursor: pointer; background: none; border: none; padding: 8px;
+      color: #fff; transition: color .3s ease;
+    }
+    header.solid .menu-btn { color: var(--navy-800); }
+    #mnav {
+      display: none; background: #fff; border-top: 1px solid var(--line-200);
+      box-shadow: var(--shadow-md);
+    }
+    #mnav.open { display: block; }
+    #mnav a { display: block; padding: 13px 24px; font-size: 15px; font-weight: 500; color: var(--ink-700); border-bottom: 1px solid var(--bg-soft); }
+    #mnav a:active { background: var(--bg-soft); }
+
+    /* ===== Hero ===== */
+    .hero {
+      position: relative; min-height: 92vh;
+      display: flex; align-items: center;
+      background:
+        radial-gradient(1100px 500px at 85% -10%, rgba(36,112,224,.35), transparent 60%),
+        radial-gradient(800px 420px at -10% 110%, rgba(53,208,149,.16), transparent 55%),
+        linear-gradient(165deg, var(--navy-900) 0%, var(--navy-800) 55%, #0d2140 100%);
+      color: #fff; overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0; opacity: .5;
+      background-image:
+        linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, #000 30%, transparent 75%);
+    }
+    .hero-diagram { position: absolute; right: -60px; bottom: -20px; width: 620px; max-width: 70vw; opacity: .5; pointer-events: none; }
+    .hero-inner { position: relative; z-index: 2; padding: 150px 0 110px; max-width: 720px; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 600; letter-spacing: .04em;
+      color: #9fd8bf; background: rgba(53,208,149,.12);
+      border: 1px solid rgba(53,208,149,.35);
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 26px;
+    }
+    .hero-eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-500); box-shadow: 0 0 10px var(--green-500); }
+    .hero h1 {
+      font-size: clamp(34px, 5.2vw, 56px); font-weight: 800;
+      letter-spacing: -.03em; line-height: 1.16; margin-bottom: 22px;
+    }
+    .hero h1 .accent {
+      background: linear-gradient(90deg, #6db2ff, #35d095);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p.lead { font-size: clamp(15.5px, 1.8vw, 18.5px); color: #b6c4d9; max-width: 620px; margin-bottom: 36px; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 54px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font); font-size: 15.5px; font-weight: 700; cursor: pointer;
+      padding: 14px 28px; border-radius: 12px; border: none;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: linear-gradient(135deg, var(--blue-600), #1b5cc4); color: #fff; box-shadow: 0 10px 26px -8px rgba(36,112,224,.55); }
+    .btn-primary:hover { box-shadow: 0 14px 32px -8px rgba(36,112,224,.7); }
+    .btn-ghost { background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.3); }
+    .btn-ghost:hover { background: rgba(255,255,255,.18); }
+    .btn svg { width: 17px; height: 17px; }
+
+    .pipeline { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 0; }
+    .pipe-step { display: flex; align-items: center; }
+    .pipe-chip {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      font-size: 12.5px; font-weight: 600; color: #cfe0f5;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+      border-radius: 12px; padding: 10px 18px; min-width: 96px;
+    }
+    .pipe-chip b { font-size: 13.5px; color: #fff; font-weight: 700; letter-spacing: -.01em; }
+    .pipe-chip span { color: #8fa5c4; font-weight: 500; font-size: 11.5px; }
+    .pipe-arrow { color: var(--green-500); margin: 0 10px; flex: none; }
+    .pipe-chip.last { background: rgba(53,208,149,.13); border-color: rgba(53,208,149,.4); }
+    .pipe-chip.last b { color: #7fe9c3; }
+
+    /* ===== Sections common ===== */
+    .section { padding: 96px 0; }
+    .section.alt { background: var(--bg-soft); }
+    .sec-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+    .sec-eyebrow {
+      display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--blue-600); margin-bottom: 12px;
+    }
+    .sec-head h2 { font-size: clamp(26px, 3.4vw, 36px); font-weight: 800; letter-spacing: -.025em; color: var(--navy-800); margin-bottom: 14px; }
+    .sec-head p { font-size: 16.5px; color: var(--ink-500); }
+
+    /* ===== About ===== */
+    .about-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
+    .about-copy h2 { font-size: clamp(26px, 3.2vw, 34px); font-weight: 800; letter-spacing: -.025em; color: var(--navy-800); margin-bottom: 18px; }
+    .about-copy p { font-size: 16.5px; color: var(--ink-700); margin-bottom: 14px; }
+    .about-copy p.sub { color: var(--ink-500); font-size: 15.5px; }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .tag {
+      font-size: 13px; font-weight: 600; color: var(--blue-600);
+      background: var(--blue-100); border-radius: 999px; padding: 5px 13px;
+    }
+    .tag.green { color: var(--green-600); background: #d9f6ea; }
+    .about-visual {
+      background: linear-gradient(160deg, var(--navy-800), var(--navy-700));
+      border-radius: 20px; padding: 34px 30px; color: #fff; box-shadow: var(--shadow-lg);
+    }
+    .about-visual h3 { font-size: 14px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #8fa5c4; margin-bottom: 20px; }
+    .flow-row { display: flex; align-items: center; gap: 10px; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .flow-row:last-child { border-bottom: none; }
+    .flow-row svg { width: 20px; height: 20px; color: var(--green-500); flex: none; }
+    .flow-row div b { display: block; font-size: 14.5px; font-weight: 700; }
+    .flow-row div span { font-size: 12.5px; color: #8fa5c4; }
+
+    /* ===== Services ===== */
+    .svc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .svc-card {
+      background: #fff; border: 1px solid var(--line-200); border-radius: var(--radius);
+      padding: 26px 24px; text-align: left; box-shadow: var(--shadow-sm);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      display: flex; flex-direction: column;
+    }
+    .svc-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: #c9d9f2; }
+    .svc-icon {
+      width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #e8f1fe, #ddf5ec); margin-bottom: 16px;
+    }
+    .svc-icon svg { width: 23px; height: 23px; color: var(--blue-600); }
+    .svc-card:nth-child(even) .svc-icon svg { color: var(--green-600); }
+    .svc-card h3 { font-size: 16.5px; font-weight: 700; letter-spacing: -.015em; color: var(--navy-800); margin-bottom: 11px; line-height: 1.35; }
+    .svc-card ul { list-style: none; display: grid; gap: 7px; }
+    .svc-card li { font-size: 13.5px; color: var(--ink-500); padding-left: 16px; position: relative; line-height: 1.5; }
+    .svc-card li::before {
+      content: ""; position: absolute; left: 2px; top: 8px;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--green-500);
+    }
+    .svc-cta { text-align: center; margin-top: 44px; }
+
+    /* ===== Projects ===== */
+    .prj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .prj-card {
+      background: #fff; border: 1px solid var(--line-200); border-radius: var(--radius);
+      padding: 28px 26px; text-align: left; box-shadow: var(--shadow-sm);
+      border-top: 3px solid var(--blue-600);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .prj-card:nth-child(2) { border-top-color: var(--green-500); }
+    .prj-card:nth-child(3) { border-top-color: #7c5cf0; }
+    .prj-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .prj-num { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--ink-500); margin-bottom: 12px; }
+    .prj-card h3 { font-size: 17.5px; font-weight: 700; letter-spacing: -.015em; color: var(--navy-800); margin-bottom: 10px; line-height: 1.4; }
+    .prj-card p { font-size: 14.5px; color: var(--ink-500); }
+
+    /* ===== Tech DD ===== */
+    .dd-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 22px; }
+    .dd-card {
+      background: #fff; border: 1px solid var(--line-200); border-radius: var(--radius);
+      padding: 30px 28px; text-align: left; box-shadow: var(--shadow-sm);
+    }
+    .dd-card h3 { font-size: 17px; font-weight: 700; color: var(--navy-800); margin-bottom: 18px; display: flex; align-items: center; gap: 9px; }
+    .dd-card h3 svg { width: 20px; height: 20px; color: var(--blue-600); }
+    .dd-check { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; }
+    .dd-check li { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; color: var(--ink-700); line-height: 1.45; }
+    .dd-check li svg { width: 17px; height: 17px; color: var(--green-500); flex: none; margin-top: 2px; }
+    .eng-list { list-style: none; display: grid; gap: 12px; }
+    .eng-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      background: var(--bg-soft); border: 1px solid var(--line-200);
+      border-radius: 12px; padding: 14px 18px;
+    }
+    .eng-item b { font-size: 14.5px; font-weight: 700; color: var(--navy-800); }
+    .eng-badge {
+      font-size: 12.5px; font-weight: 700; color: var(--blue-600);
+      background: var(--blue-100); border-radius: 999px; padding: 4px 12px; white-space: nowrap;
+    }
+
+    /* ===== Contact ===== */
+    .contact-band {
+      background:
+        radial-gradient(900px 400px at 80% -20%, rgba(36,112,224,.35), transparent 60%),
+        linear-gradient(160deg, var(--navy-900), var(--navy-800));
+      border-radius: 24px; color: #fff; padding: 64px 56px;
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .contact-band h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; letter-spacing: -.025em; margin-bottom: 12px; }
+    .contact-band p { color: #b6c4d9; font-size: 15.5px; }
+    .contact-cards { display: grid; gap: 14px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 15px;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px; padding: 16px 20px; transition: background .25s ease, transform .2s ease;
+    }
+    .contact-item:hover { background: rgba(255,255,255,.13); transform: translateY(-2px); }
+    .contact-item .ci-icon {
+      width: 42px; height: 42px; border-radius: 11px; flex: none;
+      background: rgba(53,208,149,.15); border: 1px solid rgba(53,208,149,.35);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-item .ci-icon svg { width: 20px; height: 20px; color: var(--green-500); }
+    .contact-item div span { display: block; font-size: 12px; color: #8fa5c4; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+    .contact-item div b { font-size: 15.5px; font-weight: 700; }
+
+    footer { padding: 34px 0 40px; text-align: center; }
+    footer .foot-brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 16px; color: var(--navy-800); margin-bottom: 8px; }
+    footer .foot-brand svg { width: 22px; height: 22px; }
+    footer p { font-size: 13.5px; color: var(--ink-500); }
+
+    /* ===== Reveal animation ===== */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal.d1 { transition-delay: .08s; } .reveal.d2 { transition-delay: .16s; }
+    .reveal.d3 { transition-delay: .24s; } .reveal.d4 { transition-delay: .32s; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1000px) {
+      .svc-grid { grid-template-columns: repeat(2, 1fr); }
+      .prj-grid { grid-template-columns: 1fr; }
+      .dd-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-band { grid-template-columns: 1fr; padding: 46px 34px; }
+    }
+    @media (max-width: 720px) {
+      nav.main { display: none; }
+      .menu-btn { display: block; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .dd-check { grid-template-columns: 1fr; }
+      .hero-inner { padding: 120px 0 80px; }
+      .hero-diagram { display: none; }
+      .pipe-arrow { margin: 0 6px; }
+      .pipe-chip { min-width: 84px; padding: 9px 13px; }
+      .section { padding: 72px 0; }
+    }
   </style>
 </head>
-<body class="min-h-screen text-slate-900 scroll-smooth">
+<body>
 
   <!-- Header -->
-  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
-    <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
-      <a href="#home" class="flex items-center gap-3">
-        <img src="logo.png" alt="ScaleChem Logo" class="h-8 w-auto" onerror="this.style.display='none'">
-        <span class="font-semibold text-lg tracking-tight text-blue-700">ScaleChem</span>
+  <header id="hdr">
+    <div class="wrap hbar">
+      <a href="#home" class="brand" aria-label="ScaleChem Home">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M13 6h6M14 6v7l6 11a3 3 0 0 1-2.6 4.5h-9.8A3 3 0 0 1 5 24l6-11V6" stroke="currentColor" class="sc-scale" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 13l9-9m0 0h-6.5M27 4v6.5" stroke="#35d095" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        ScaleChem
       </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-700">
-        <a href="#home"  class="hover:text-blue-700">Home</a>
-        <a href="#about" class="hover:text-blue-700">About</a>
-        <a href="#services" class="hover:text-blue-700">Services</a>
-        <a href="#projects" class="hover:text-blue-700">Projects</a>
-        <a href="#techdd" class="hover:text-blue-700">Tech DD</a>
-        <a href="#contact" class="hover:text-blue-700">Contact</a>
+      <nav class="main" aria-label="Main">
+        <a href="#home" data-en="Home" data-kr="홈">Home</a>
+        <a href="#about" data-en="About" data-kr="회사소개">About</a>
+        <a href="#services" data-en="Services" data-kr="서비스">Services</a>
+        <a href="#projects" data-en="Projects" data-kr="프로젝트">Projects</a>
+        <a href="#techdd" data-en="Tech DD" data-kr="기술실사">Tech DD</a>
+        <a href="#contact" data-en="Contact" data-kr="문의">Contact</a>
       </nav>
-      <div class="flex items-center gap-2">
-        <button id="langBtn" class="rounded-xl border border-slate-300 bg-white px-3 py-1 text-sm hover:bg-slate-100">한국어</button>
-        <button id="menuBtn" class="md:hidden rounded-xl border border-slate-300 bg-white p-2 hover:bg-slate-100" aria-expanded="false" aria-controls="mnav">
-          <span class="sr-only">Menu</span>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-700"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <div class="hactions">
+        <button id="langBtn" class="lang-btn" type="button">한국어</button>
+        <button id="menuBtn" class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
       </div>
     </div>
-    <nav id="mnav" class="hidden md:hidden border-t border-slate-200 bg-white">
-      <ul class="max-w-6xl mx-auto p-4 grid gap-2 text-sm">
-        <li><a href="#home" class="block py-2">Home</a></li>
-        <li><a href="#about" class="block py-2">About</a></li>
-        <li><a href="#services" class="block py-2">Services</a></li>
-        <li><a href="#projects" class="block py-2">Projects</a></li>
-        <li><a href="#techdd" class="block py-2">Tech DD</a></li>
-        <li><a href="#contact" class="block py-2">Contact</a></li>
-      </ul>
+    <nav id="mnav" aria-label="Mobile">
+      <a href="#home" data-en="Home" data-kr="홈">Home</a>
+      <a href="#about" data-en="About" data-kr="회사소개">About</a>
+      <a href="#services" data-en="Services" data-kr="서비스">Services</a>
+      <a href="#projects" data-en="Projects" data-kr="프로젝트">Projects</a>
+      <a href="#techdd" data-en="Tech DD" data-kr="기술실사">Tech DD</a>
+      <a href="#contact" data-en="Contact" data-kr="문의">Contact</a>
     </nav>
   </header>
 
   <!-- Hero -->
-  <section id="home" class="relative h-[88vh] flex flex-col items-center justify-center text-center overflow-hidden">
-    <img src="hero.png" alt="Industrial background" class="absolute inset-0 w-full h-full object-cover opacity-70"
-         onerror="this.remove();document.getElementById('heroBox').classList.add('hero-fallback');" />
-    <div id="heroBox" class="absolute inset-0"></div>
-    <div class="absolute inset-0 backdrop"></div>
-    <div class="relative z-10 text-white max-w-3xl px-6">
-      <img src="logo.png" alt="ScaleChem Logo" class="h-20 mx-auto mb-8" onerror="this.style.display='none'">
-      <h1 class="text-4xl sm:text-5xl font-extrabold mb-6 leading-tight"
-          data-en="From Pilot to Commercial: Bridging Innovation & Scale-Up"
-          data-kr-html="From Pilot to Commercial:<br/>기술개발 / 엔지니어링 / 스케일업">
-        From Pilot to Commercial: Bridging Innovation & Scale-Up
-      </h1>
-      <p class="text-base sm:text-lg text-slate-100 mb-8"
-         data-en="ScaleChem transforms innovative lab ideas into commercial-scale solutions. We support startups and SMEs across process development, scale-up, and basic engineering."
-         data-kr="ScaleChem은 실험실의 혁신을 산업화로 확장합니다. 연구개발부터 스케일업·기본설계까지 전 단계를 지원합니다.">
-         ScaleChem transforms innovative lab ideas into commercial-scale solutions. We support startups and SMEs across process development, scale-up, and basic engineering.
-      </p>
-      <div class="flex gap-3 sm:gap-4 justify-center">
-        <a href="#about" class="px-5 sm:px-6 py-3 rounded-xl bg-blue-700 hover:bg-blue-600 text-white font-semibold shadow-md transition"
-           data-en="Learn More" data-kr="자세히 보기">Learn More</a>
-        <a href="#contact" class="px-5 sm:px-6 py-3 rounded-xl bg-white hover:bg-slate-100 text-blue-700 font-semibold shadow-md transition"
-           data-en="Contact Us" data-kr="문의하기">Contact Us</a>
+  <section id="home" class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <svg class="hero-diagram" viewBox="0 0 620 420" fill="none" aria-hidden="true">
+      <g stroke="rgba(140,180,235,.5)" stroke-width="1.6">
+        <rect x="40" y="240" width="70" height="110" rx="8"/>
+        <ellipse cx="75" cy="240" rx="35" ry="10"/>
+        <rect x="190" y="150" width="58" height="200" rx="29"/>
+        <line x1="190" y1="205" x2="248" y2="205"/>
+        <line x1="190" y1="255" x2="248" y2="255"/>
+        <line x1="190" y1="305" x2="248" y2="305"/>
+        <circle cx="360" cy="290" r="52"/>
+        <path d="M340 270a28 28 0 0 1 40 0"/>
+        <rect x="470" y="180" width="110" height="170" rx="10"/>
+        <line x1="470" y1="225" x2="580" y2="225"/>
+        <line x1="470" y1="270" x2="580" y2="270"/>
+        <line x1="470" y1="315" x2="580" y2="315"/>
+        <path d="M110 290h80M248 240h60l0 0M412 270h58"/>
+        <path d="M75 230V120h115v30M219 120V90h141v60M360 238v-88h110v30" stroke-dasharray="5 6"/>
+      </g>
+      <g fill="rgba(53,208,149,.75)">
+        <circle cx="150" cy="290" r="4"/>
+        <circle cx="285" cy="240" r="4"/>
+        <circle cx="440" cy="270" r="4"/>
+      </g>
+    </svg>
+    <div class="wrap">
+      <div class="hero-inner">
+        <div class="hero-eyebrow reveal">
+          <span class="dot"></span>
+          <span data-en="Engineering Consulting · Jeonju, South Korea" data-kr="엔지니어링 컨설팅 · 대한민국 전주">Engineering Consulting · Jeonju, South Korea</span>
+        </div>
+        <h1 class="reveal d1"
+            data-en-html='From Pilot to Commercial:<br/><span class="accent">Bridging Innovation &amp; Scale-Up</span>'
+            data-kr-html='From Pilot to Commercial:<br/><span class="accent">기술개발 / 엔지니어링 / 스케일업</span>'>
+          From Pilot to Commercial:<br/><span class="accent">Bridging Innovation &amp; Scale-Up</span>
+        </h1>
+        <p class="lead reveal d2"
+           data-en="ScaleChem transforms innovative lab ideas into commercial-scale solutions. We support startups and SMEs across process development, scale-up, and basic engineering."
+           data-kr="ScaleChem은 실험실의 혁신을 산업화로 확장합니다. 연구개발부터 스케일업·기본설계까지 전 단계를 지원합니다.">
+           ScaleChem transforms innovative lab ideas into commercial-scale solutions. We support startups and SMEs across process development, scale-up, and basic engineering.
+        </p>
+        <div class="hero-ctas reveal d3">
+          <a href="#services" class="btn btn-primary">
+            <span data-en="Explore Services" data-kr="서비스 보기">Explore Services</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#contact" class="btn btn-ghost" data-en="Contact Us" data-kr="문의하기">Contact Us</a>
+        </div>
+        <div class="pipeline reveal d4" aria-label="Scale-up pipeline">
+          <div class="pipe-step">
+            <div class="pipe-chip"><b>Lab</b><span data-en="Concept &amp; PoC" data-kr="컨셉·PoC">Concept &amp; PoC</span></div>
+            <svg class="pipe-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-chip"><b>Pilot</b><span data-en="Design &amp; KPI" data-kr="설계·KPI">Design &amp; KPI</span></div>
+            <svg class="pipe-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-chip"><b>BEP</b><span data-en="Basic Design" data-kr="기본설계">Basic Design</span></div>
+            <svg class="pipe-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-chip last"><b data-en="Commercial" data-kr="상업화">Commercial</b><span data-en="Start-up &amp; Ramp-up" data-kr="시운전·램프업">Start-up &amp; Ramp-up</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- About -->
-  <section id="about" class="py-20 bg-slate-50 text-center text-slate-800">
-    <h2 class="text-3xl font-bold mb-6" data-en="About ScaleChem" data-kr="회사 소개">About ScaleChem</h2>
-    <p class="max-w-3xl mx-auto text-lg mb-8"
-       data-en="ScaleChem provides engineering consulting specialized in process development, scale-up, and commercialization for chemical & material industries."
-       data-kr="ScaleChem은 화학·소재 산업의 공정 개발, 스케일업, 상업화에 특화된 엔지니어링 컨설팅을 제공합니다.">
-       ScaleChem provides engineering consulting specialized in process development, scale-up, and commercialization for chemical & material industries.
-    </p>
-    <p class="max-w-3xl mx-auto text-base"
-       data-en="Based in Jeonju, South Korea, we deliver practical engineering solutions for SMEs and startups."
-       data-kr="대한민국 전주를 기반으로 중소기업과 스타트업에 실질적인 엔지니어링 솔루션을 제공합니다.">
-       Based in Jeonju, South Korea, we deliver practical engineering solutions for SMEs and startups.
-    </p>
+  <section id="about" class="section">
+    <div class="wrap about-grid">
+      <div class="about-copy reveal">
+        <span class="sec-eyebrow" data-en="About" data-kr="회사소개">About</span>
+        <h2 data-en="About ScaleChem" data-kr="ScaleChem 소개">About ScaleChem</h2>
+        <p data-en="ScaleChem provides engineering consulting specialized in process development, scale-up, and commercialization for chemical &amp; material industries."
+           data-kr="ScaleChem은 화학·소재 산업의 공정 개발, 스케일업, 상업화에 특화된 엔지니어링 컨설팅을 제공합니다.">
+           ScaleChem provides engineering consulting specialized in process development, scale-up, and commercialization for chemical &amp; material industries.
+        </p>
+        <p class="sub"
+           data-en="Based in Jeonju, South Korea, we deliver practical engineering solutions for SMEs and startups."
+           data-kr="대한민국 전주를 기반으로 중소기업과 스타트업에 실질적인 엔지니어링 솔루션을 제공합니다.">
+           Based in Jeonju, South Korea, we deliver practical engineering solutions for SMEs and startups.
+        </p>
+        <div class="about-tags">
+          <span class="tag" data-en="Process Development" data-kr="공정 개발">Process Development</span>
+          <span class="tag green" data-en="Scale-Up" data-kr="스케일업">Scale-Up</span>
+          <span class="tag">BEP</span>
+          <span class="tag green">Tech DD</span>
+          <span class="tag" data-en="Safety &amp; PSM" data-kr="안전·PSM">Safety &amp; PSM</span>
+        </div>
+      </div>
+      <div class="about-visual reveal d2">
+        <h3 data-en="How we work" data-kr="진행 방식">How we work</h3>
+        <div class="flow-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <div>
+            <b data-en="Short discovery call" data-kr="사전 상담">Short discovery call</b>
+            <span data-en="Understand your process &amp; goals" data-kr="공정과 목표를 파악합니다">Understand your process &amp; goals</span>
+          </div>
+        </div>
+        <div class="flow-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h4M8 3h8l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/></svg>
+          <div>
+            <b data-en="Fixed-scope proposal" data-kr="범위 확정형 제안">Fixed-scope proposal</b>
+            <span data-en="Deliverables and timelines clearly defined" data-kr="산출물·일정을 명확히 제시합니다">Deliverables and timelines clearly defined</span>
+          </div>
+        </div>
+        <div class="flow-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+          <div>
+            <b data-en="Execution &amp; handover" data-kr="수행 및 핸드오버">Execution &amp; handover</b>
+            <span data-en="Practical documents your team can run with" data-kr="현장에서 바로 쓰는 산출물을 전달합니다">Practical documents your team can run with</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Services (Enhanced) -->
-  <section id="services" class="py-20 bg-white text-center text-slate-800">
-    <h2 class="text-3xl font-bold mb-6" data-en="Our Services" data-kr="주요 서비스">Our Services</h2>
-    <p class="max-w-3xl mx-auto text-slate-600 mb-10"
-       data-en="Fixed-scope proposals after a short discovery call. Deliverables and timelines clearly defined."
-       data-kr="짧은 디스커버리 콜 후 범위 확정형 제안. 산출물·일정·고정가를 명확히 제시합니다.">
-       Fixed-scope proposals after a short discovery call. Deliverables and timelines clearly defined.
-    </p>
-
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
-
-      <!-- 1 -->
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2">🚀 <span data-en="Pilot Design & Scale-Up" data-kr="파일럿 설계 · 스케일업">Pilot Design & Scale-Up</span></h3>
-        <ul class="text-sm text-slate-700 space-y-1">
-          <li data-en="Concept → PFD/P&ID → utilities sizing" data-kr="컨셉 → PFD/P&ID → 유틸리티 산정">Concept → PFD/P&ID → utilities sizing</li>
-          <li data-en="Cycle design, sampling, DoE for scale-up" data-kr="사이클 설계·샘플링·DoE 기반 스케일업">Cycle design, sampling, DoE for scale-up</li>
-          <li data-en="Pilot KPIs & scale-up risk register" data-kr="파일럿 KPI 및 스케일업 리스크 레지스터">Pilot KPIs & scale-up risk register</li>
-        </ul>
+  <!-- Services -->
+  <section id="services" class="section alt">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow" data-en="Services" data-kr="서비스">Services</span>
+        <h2 data-en="Our Services" data-kr="주요 서비스">Our Services</h2>
+        <p data-en="Fixed-scope proposals after a short discovery call. Deliverables and timelines clearly defined."
+           data-kr="사전 상담 후 업무 범위를 확정해 제안드립니다. 산출물·일정·고정가를 명확히 제시합니다.">
+           Fixed-scope proposals after a short discovery call. Deliverables and timelines clearly defined.
+        </p>
       </div>
+      <div class="svc-grid">
 
-      <!-- 2 -->
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2">📦 <span data-en="Basic Engineering Package (BEP)" data-kr="기본 엔지니어링 패키지(BEP)">Basic Engineering Package (BEP)</span></h3>
-        <ul class="text-sm text-slate-700 space-y-1">
-          <li data-en="Process narratives, MB/EB, equipment datasheets" data-kr="공정기술서·물질/열수지·장치 데이터시트">Process narratives, MB/EB, equipment datasheets</li>
-          <li data-en="Line list, PSV sizing, utility balance" data-kr="라인리스트·PSV 용량 산정·유틸리티 밸런스">Line list, PSV sizing, utility balance</li>
-          <li data-en="CapEx/OpEx model & class-4/5 estimate" data-kr="CapEx/OpEx 모델 및 개략견적(Class 4/5)">CapEx/OpEx model & class-4/5 estimate</li>
-        </ul>
+        <div class="svc-card reveal">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M11 2v6l-5 9.5A2 2 0 0 0 7.8 20h8.4a2 2 0 0 0 1.8-2.5L13 8V2"/><path d="M8.5 14h7"/></svg></div>
+          <h3 data-en="Pilot Design &amp; Scale-Up" data-kr="파일럿 설계 · 스케일업">Pilot Design &amp; Scale-Up</h3>
+          <ul>
+            <li data-en="Concept → PFD/P&amp;ID → utilities sizing" data-kr="컨셉 → PFD/P&amp;ID → 유틸리티 산정">Concept → PFD/P&amp;ID → utilities sizing</li>
+            <li data-en="Cycle design, sampling, DoE for scale-up" data-kr="사이클 설계·샘플링·DoE 기반 스케일업">Cycle design, sampling, DoE for scale-up</li>
+            <li data-en="Pilot KPIs &amp; scale-up risk register" data-kr="파일럿 KPI 및 스케일업 리스크 레지스터">Pilot KPIs &amp; scale-up risk register</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal d1">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></div>
+          <h3 data-en="Basic Engineering Package (BEP)" data-kr="기본 엔지니어링 패키지(BEP)">Basic Engineering Package (BEP)</h3>
+          <ul>
+            <li data-en="Process narratives, MB/EB, equipment datasheets" data-kr="공정기술서·물질/열수지·장치 데이터시트">Process narratives, MB/EB, equipment datasheets</li>
+            <li data-en="Line list, PSV sizing, utility balance" data-kr="라인리스트·PSV 용량 산정·유틸리티 밸런스">Line list, PSV sizing, utility balance</li>
+            <li data-en="CapEx/OpEx model &amp; class-4/5 estimate" data-kr="CapEx/OpEx 모델 및 개략견적(Class 4/5)">CapEx/OpEx model &amp; class-4/5 estimate</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal d2">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+          <h3 data-en="Process Simulation &amp; Optimization" data-kr="공정 시뮬레이션 · 최적화">Process Simulation &amp; Optimization</h3>
+          <ul>
+            <li>Aspen Plus / PRO-II / HYSYS <span data-en="models" data-kr="모델">models</span></li>
+            <li data-en="Sensitivity &amp; debottlenecking studies" data-kr="민감도·디바틀네킹 스터디">Sensitivity &amp; debottlenecking studies</li>
+            <li data-en="Energy &amp; yield improvement roadmap" data-kr="에너지·수율 개선 로드맵">Energy &amp; yield improvement roadmap</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal d3">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3 data-en="Safety &amp; Regulatory Readiness" data-kr="안전 · 규제 대응">Safety &amp; Regulatory Readiness</h3>
+          <ul>
+            <li data-en="PSM (12 elements), HAZOP/LOPA, MOC system" data-kr="PSM(12요소), HAZOP/LOPA, MOC 체계 구축">PSM (12 elements), HAZOP/LOPA, MOC system</li>
+            <li data-en="KGS design approval support" data-kr="KGS 설계승인 지원">KGS design approval support</li>
+            <li data-en="PSSR checklist &amp; start-up readiness" data-kr="PSSR 체크리스트·가동 준비도">PSSR checklist &amp; start-up readiness</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+          <h3 data-en="Commissioning &amp; Troubleshooting" data-kr="시운전 · 트러블슈팅">Commissioning &amp; Troubleshooting</h3>
+          <ul>
+            <li data-en="Start-up SOPs, SAT, ramp-up playbook" data-kr="Start-up SOP·SAT·램프업 플레이북">Start-up SOPs, SAT, ramp-up playbook</li>
+            <li data-en="Root-cause analysis &amp; corrective actions" data-kr="원인분석(RCA)·개선조치">Root-cause analysis &amp; corrective actions</li>
+            <li data-en="OEE &amp; throughput stabilization" data-kr="OEE 및 처리량 안정화">OEE &amp; throughput stabilization</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal d1">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="7" width="12" height="14" rx="2"/><path d="M10 7V4h4v3"/><path d="M9 12h6M9 16h6"/></svg></div>
+          <h3 data-en="Battery Material Process Development" data-kr="이차전지 소재 공정 개발">Battery Material Process Development</h3>
+          <ul>
+            <li data-en="Pilot development &amp; BEP for scale-up" data-kr="스케일업을 위한 파일럿 개발·BEP">Pilot development &amp; BEP for scale-up</li>
+            <li data-en="Silicon anode, CNT additives, slurry/thermal units" data-kr="실리콘 음극·CNT 도전재·슬러리/열처리">Silicon anode, CNT additives, slurry/thermal units</li>
+            <li data-en="Quality KPIs &amp; validation protocol" data-kr="품질 KPI·검증 프로토콜">Quality KPIs &amp; validation protocol</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal d2">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg></div>
+          <h3 data-en="Technology Due Diligence (Tech DD)" data-kr="기술 실사(Tech DD)">Technology Due Diligence (Tech DD)</h3>
+          <ul>
+            <li data-en="Scalability, reliability, TRL verification" data-kr="확장성·신뢰성·TRL 검증">Scalability, reliability, TRL verification</li>
+            <li data-en="CapEx/OpEx &amp; unit economics checks" data-kr="CapEx/OpEx·단위경제성 검토">CapEx/OpEx &amp; unit economics checks</li>
+            <li data-en="Red-flag memo &amp; actionable roadmap" data-kr="레드플래그 메모·액션 로드맵">Red-flag memo &amp; actionable roadmap</li>
+          </ul>
+        </div>
+
+        <div class="svc-card reveal d3">
+          <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <h3 data-en="Documentation &amp; Training" data-kr="문서화 · 트레이닝">Documentation &amp; Training</h3>
+          <ul>
+            <li data-en="Template pack: PFD/P&amp;ID, HAZOP, MOC, PSSR" data-kr="템플릿 팩: PFD/P&amp;ID, HAZOP, MOC, PSSR">Template pack: PFD/P&amp;ID, HAZOP, MOC, PSSR</li>
+            <li data-en="Operator &amp; engineer workshops" data-kr="운전·엔지니어 워크숍">Operator &amp; engineer workshops</li>
+            <li data-en="Handover binder &amp; run-book" data-kr="핸드오버 바인더·런북">Handover binder &amp; run-book</li>
+          </ul>
+        </div>
+
       </div>
-
-      <!-- 3 -->
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2">🧪 <span data-en="Process Simulation & Optimization" data-kr="공정 시뮬레이션 · 최적화">Process Simulation & Optimization</span></h3>
-        <ul class="text-sm text-slate-700 space-y-1">
-          <li data-en="Aspen Plus / PRO-II / HYSYS models" data-kr="Aspen Plus / PRO-II / HYSYS 모델">Aspen Plus / PRO-II / HYSYS models</li>
-          <li data-en="Sensitivity & debottlenecking studies" data-kr="민감도·디바틀네킹 스터디">Sensitivity & debottlenecking studies</li>
-          <li data-en="Energy & yield improvement roadmap" data-kr="에너지·수율 개선 로드맵">Energy & yield improvement roadmap</li>
-        </ul>
+      <div class="svc-cta reveal">
+        <a href="#contact" class="btn btn-primary">
+          <span data-en="Request a Scope &amp; Quote" data-kr="범위/견적 문의하기">Request a Scope &amp; Quote</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
-
-      <!-- 4 -->
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2">🛡️ <span data-en="Safety & Regulatory Readiness" data-kr="안전 · 규제 대응">Safety & Regulatory Readiness</span></h3>
-        <ul class="text-sm text-slate-700 space-y-1">
-          <li data-en="PSM (12 elements), HAZOP/LOPA, MOC system" data-kr="PSM(12요소), HAZOP/LOPA, MOC 체계 구축">PSM (12 elements), HAZOP/LOPA, MOC system</li>
-          <li data-en="KGS design approval support" data-kr="KGS 설계승인 지원">KGS design approval support</li>
-          <li data-en="PSSR checklist & start-up readiness" data-kr="PSSR 체크리스트·가동 준비도">PSSR checklist & start-up readiness</li>
-        </ul>
-      </div>
-
-      <!-- 5 -->
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2">⚙️ <span data-en="Commissioning & Troubleshooting" data-kr="시운전 · 트러블슈팅">Commissioning & Troubleshooting</span></h3>
-        <ul class="text-sm text-slate-700 space-y-1">
-          <li data-en="Start-up SOPs, SAT, ramp-up playbook" data-kr="Start-up SOP·SAT·램프업 플레이북">Start-up SOPs, SAT, ramp-up playbook</li>
-          <li data-en="Root-cause analysis & corrective actions" data-kr="원인분석(RCA)·개선조치">Root-cause analysis & corrective actions</li>
-          <li data-en="OEE & throughput stabilization" data-kr="OEE 및 처리량 안정화">OEE & throughput stabilization</li>
-        </ul>
-      </div>
-
-      <!-- 6 -->
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2">🔋 <span data-en="Battery Material Process Development" data-kr="이차전지 소재 공정 개발">Battery Material Process Development</span></h3>
-        <ul class="text-sm text-slate-700 space-y-1">
-          <li data-en="Pilot development & BEP for scale-up" data-kr="스케일업을 위한 파일럿 개발·BEP">Pilot development & BEP for scale-up</li>
-          <li data-en="Silicon anode, CNT additives, slurry/thermal units" data-kr="실리콘 음극·CNT 도전재·슬러리/열처리">Silicon anode, CNT additives, slurry/thermal units</li>
-          <li data-en="Quality KPIs & validation protocol" data-kr="품질 KPI·검증 프로토콜">Quality KPIs & validation protocol</li>
-        </ul>
-      </div>
-
-      <!-- 7 -->
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2">🧭 <span data-en="Technology Due Diligence (Tech DD)" data-kr="기술 실사(Tech DD)">Technology Due Diligence (Tech DD)</span></h3>
-        <ul class="text-sm text-slate-700 space-y-1">
-          <li data-en="Scalability, reliability, TRL verification" data-kr="확장성·신뢰성·TRL 검증">Scalability, reliability, TRL verification</li>
-          <li data-en="CapEx/OpEx & unit economics checks" data-kr="CapEx/OpEx·단위경제성 검토">CapEx/OpEx & unit economics checks</li>
-          <li data-en="Red-flag memo & actionable roadmap" data-kr="레드플래그 메모·액션 로드맵">Red-flag memo & actionable roadmap</li>
-        </ul>
-      </div>
-
-      <!-- 8 -->
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2">📚 <span data-en="Documentation & Training" data-kr="문서화 · 트레이닝">Documentation & Training</span></h3>
-        <ul class="text-sm text-slate-700 space-y-1">
-          <li data-en="Template pack: PFD/P&ID, HAZOP, MOC, PSSR" data-kr="템플릿 팩: PFD/P&ID, HAZOP, MOC, PSSR">Template pack: PFD/P&ID, HAZOP, MOC, PSSR</li>
-          <li data-en="Operator & engineer workshops" data-kr="운전·엔지니어 워크숍">Operator & engineer workshops</li>
-          <li data-en="Handover binder & run-book" data-kr="핸드오버 바인더·런북">Handover binder & run-book</li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="mt-10">
-      <a href="#contact" class="inline-block px-5 sm:px-6 py-3 rounded-xl bg-blue-700 hover:bg-blue-600 text-white font-semibold shadow-md transition"
-         data-en="Request a Scope & Quote" data-kr="범위/견적 문의하기">
-         Request a Scope & Quote
-      </a>
     </div>
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="py-20 bg-slate-50 text-center text-slate-800">
-    <h2 class="text-3xl font-bold mb-6" data-en="Projects & Case Studies" data-kr="프로젝트 및 사례">Projects & Case Studies</h2>
-    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
-
-      <div class="p-6 bg-white rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2 text-blue-700"
-            data-en="Petrochemical & Specialty Gas Optimization"
-            data-kr="석유화학 및 특수가스 최적화">
-            Petrochemical & Specialty Gas Optimization
-        </h3>
-        <p class="text-sm text-slate-700"
-           data-en="Distillation revamp, compressor optimization, and energy recovery via MVR."
-           data-kr="증류탑 리밴프, 압축기 최적화, MVR 기반 에너지 회수.">
-           Distillation revamp, compressor optimization, and energy recovery via MVR.
-        </p>
+  <section id="projects" class="section">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow" data-en="Projects" data-kr="프로젝트">Projects</span>
+        <h2 data-en="Projects &amp; Case Studies" data-kr="프로젝트 및 사례">Projects &amp; Case Studies</h2>
       </div>
-
-      <div class="p-6 bg-white rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2 text-blue-700"
-            data-en="Silicon-based Material Development"
-            data-kr="실리콘계 소재 개발">
-            Silicon-based Material Development
-        </h3>
-        <p class="text-sm text-slate-700"
-           data-en="FEED & TEA for large-scale silicon-based materials."
-           data-kr="대형 실리콘계 소재 프로젝트 FEED 및 TEA.">
-           FEED & TEA for large-scale silicon-based materials.
-        </p>
+      <div class="prj-grid">
+        <div class="prj-card reveal">
+          <div class="prj-num">CASE 01</div>
+          <h3 data-en="Petrochemical &amp; Specialty Gas Optimization" data-kr="석유화학 및 특수가스 최적화">Petrochemical &amp; Specialty Gas Optimization</h3>
+          <p data-en="Distillation revamp, compressor optimization, and energy recovery via MVR."
+             data-kr="증류탑 리뱀프, 압축기 최적화, MVR 기반 에너지 회수.">
+             Distillation revamp, compressor optimization, and energy recovery via MVR.
+          </p>
+        </div>
+        <div class="prj-card reveal d1">
+          <div class="prj-num">CASE 02</div>
+          <h3 data-en="Silicon-based Material Development" data-kr="실리콘계 소재 개발">Silicon-based Material Development</h3>
+          <p data-en="FEED &amp; TEA for large-scale silicon-based materials."
+             data-kr="대형 실리콘계 소재 프로젝트 FEED 및 TEA.">
+             FEED &amp; TEA for large-scale silicon-based materials.
+          </p>
+        </div>
+        <div class="prj-card reveal d2">
+          <div class="prj-num">CASE 03</div>
+          <h3 data-en="Battery Material Process Development" data-kr="이차전지 소재 공정 개발">Battery Material Process Development</h3>
+          <p data-en="Pilot development and BEP for scaling advanced battery materials."
+             data-kr="고급 이차전지 소재의 파일럿 개발 및 스케일업 BEP 수행.">
+             Pilot development and BEP for scaling advanced battery materials.
+          </p>
+        </div>
       </div>
-
-      <div class="p-6 bg-white rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2 text-blue-700"
-            data-en="Battery Material Process Development"
-            data-kr="이차전지 소재 공정 개발">
-            Battery Material Process Development
-        </h3>
-        <p class="text-sm text-slate-700"
-           data-en="Pilot development and BEP for scaling advanced battery materials."
-           data-kr="고급 이차전지 소재의 파일럿 개발 및 스케일업 BEP 수행.">
-           Pilot development and BEP for scaling advanced battery materials.
-        </p>
-      </div>
-
     </div>
   </section>
 
   <!-- Tech DD -->
-  <section id="techdd" class="py-20 bg-white text-center text-slate-900">
-    <h2 class="text-3xl font-bold mb-6" data-en="Technology Due Diligence (Tech DD)" data-kr="기술 실사 (Tech DD)">Technology Due Diligence (Tech DD)</h2>
-    <p class="text-slate-600 max-w-3xl mx-auto mb-10"
-       data-en="Comprehensive technical assessments focusing on scalability, feasibility, and risk for SMEs and investors."
-       data-kr="중소기업과 투자자를 위한 스케일업·타당성·리스크 중심의 종합 기술 실사.">
-       Comprehensive technical assessments focusing on scalability, feasibility, and risk for SMEs and investors.
-    </p>
-    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2" data-en="Scope of Work" data-kr="주요 평가 항목">Scope of Work</h3>
-        <ul class="text-sm text-slate-700 space-y-2">
-          <li>• <span data-en="Pilot & BEP Review" data-kr="파일럿 및 기본설계 검토">Pilot & BEP Review</span></li>
-          <li>• <span data-en="Process Scalability & Reliability" data-kr="공정 확장성 및 신뢰성 평가">Process Scalability & Reliability</span></li>
-          <li>• <span data-en="CapEx/OpEx Modeling" data-kr="CapEx/OpEx 모델링">CapEx/OpEx Modeling</span></li>
-          <li>• <span data-en="Safety & Regulatory Readiness" data-kr="안전 및 규제 대응 준비도 분석">Safety & Regulatory Readiness</span></li>
-          <li>• <span data-en="Technology Readiness Level (TRL) Verification" data-kr="기술성숙도(TRL) 검증">Technology Readiness Level (TRL) Verification</span></li>
-          <li>• <span data-en="Risk-based Engineering Validation" data-kr="리스크 기반 엔지니어링 검증">Risk-based Engineering Validation</span></li>
-        </ul>
+  <section id="techdd" class="section alt">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow">Tech DD</span>
+        <h2 data-en="Technology Due Diligence (Tech DD)" data-kr="기술 실사 (Tech DD)">Technology Due Diligence (Tech DD)</h2>
+        <p data-en="Comprehensive technical assessments focusing on scalability, feasibility, and risk for SMEs and investors."
+           data-kr="중소기업과 투자자를 위한 스케일업·타당성·리스크 중심의 종합 기술 실사.">
+           Comprehensive technical assessments focusing on scalability, feasibility, and risk for SMEs and investors.
+        </p>
       </div>
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200 shadow-sm text-left">
-        <h3 class="font-semibold mb-2" data-en="Engagement Types" data-kr="진행 형태">Engagement Types</h3>
-        <ul class="text-sm text-slate-700 space-y-2">
-          <li>• Expert Calls (1–2h)</li>
-          <li>• Rapid DD (5–10d)</li>
-          <li>• Full DD (3–6w)</li>
-        </ul>
+      <div class="dd-grid">
+        <div class="dd-card reveal">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+            <span data-en="Scope of Work" data-kr="주요 평가 항목">Scope of Work</span>
+          </h3>
+          <ul class="dd-check">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Pilot &amp; BEP Review" data-kr="파일럿 및 기본설계 검토">Pilot &amp; BEP Review</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Process Scalability &amp; Reliability" data-kr="공정 확장성 및 신뢰성 평가">Process Scalability &amp; Reliability</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-en="CapEx/OpEx Modeling" data-kr="CapEx/OpEx 모델링">CapEx/OpEx Modeling</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Safety &amp; Regulatory Readiness" data-kr="안전 및 규제 대응 준비도 분석">Safety &amp; Regulatory Readiness</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Technology Readiness Level (TRL) Verification" data-kr="기술성숙도(TRL) 검증">Technology Readiness Level (TRL) Verification</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span data-en="Risk-based Engineering Validation" data-kr="리스크 기반 엔지니어링 검증">Risk-based Engineering Validation</span></li>
+          </ul>
+        </div>
+        <div class="dd-card reveal d1">
+          <h3>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+            <span data-en="Engagement Types" data-kr="진행 형태">Engagement Types</span>
+          </h3>
+          <ul class="eng-list">
+            <li class="eng-item">
+              <b data-en="Expert Calls" data-kr="전문가 콜">Expert Calls</b>
+              <span class="eng-badge">1–2h</span>
+            </li>
+            <li class="eng-item">
+              <b>Rapid DD</b>
+              <span class="eng-badge">5–10d</span>
+            </li>
+            <li class="eng-item">
+              <b>Full DD</b>
+              <span class="eng-badge">3–6w</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-20 bg-slate-50 text-center text-slate-900">
-    <h2 class="text-3xl font-bold mb-4" data-en="Contact Us" data-kr="문의하기">Contact Us</h2>
-    <p class="text-slate-600 mb-8"
-       data-en="Get in touch with our experts for project consultations."
-       data-kr="프로젝트 상담을 원하시면 연락주세요.">
-       Get in touch with our experts for project consultations.
-    </p>
-    <div class="text-slate-700 space-y-2 mb-8">
-      <div class="flex justify-center items-center gap-2">📧 <a class="underline" href="mailto:cg0103.seo@gmail.com">cg0103.seo@gmail.com</a></div>
-      <div class="flex justify-center items-center gap-2">📞 <a class="underline" href="tel:+821027051473">+82 10-2705-1473</a></div>
+  <section id="contact" class="section">
+    <div class="wrap">
+      <div class="contact-band reveal">
+        <div>
+          <h2 data-en="Contact Us" data-kr="문의하기">Contact Us</h2>
+          <p data-en="Get in touch with our experts for project consultations."
+             data-kr="프로젝트 상담을 원하시면 연락주세요.">
+             Get in touch with our experts for project consultations.
+          </p>
+        </div>
+        <div class="contact-cards">
+          <a class="contact-item" href="mailto:cg0103.seo@gmail.com">
+            <span class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <div>
+              <span>Email</span>
+              <b>cg0103.seo@gmail.com</b>
+            </div>
+          </a>
+          <a class="contact-item" href="tel:+821027051473">
+            <span class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.13.96.36 1.9.7 2.8a2 2 0 0 1-.45 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.45c.9.34 1.84.57 2.8.7A2 2 0 0 1 22 16.9z"/></svg></span>
+            <div>
+              <span>Phone</span>
+              <b>+82 10-2705-1473</b>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
-    <footer class="pt-6 border-t border-slate-200 text-center text-sm text-slate-500 bg-transparent">
-      © <span id="year"></span> ScaleChem Consulting. All rights reserved.
-    </footer>
   </section>
 
-  <!-- Script -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-brand">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M13 6h6M14 6v7l6 11a3 3 0 0 1-2.6 4.5h-9.8A3 3 0 0 1 5 24l6-11V6" stroke="#2470e0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 13l9-9m0 0h-6.5M27 4v6.5" stroke="#35d095" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        ScaleChem
+      </div>
+      <p>© <span id="year"></span> ScaleChem Consulting. All rights reserved.</p>
+    </div>
+  </footer>
+
   <script>
-    // year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // mobile menu
-    const menuBtn=document.getElementById('menuBtn');
-    const mnav=document.getElementById('mnav');
-    menuBtn.addEventListener('click',()=>{mnav.classList.toggle('hidden')});
-    mnav.addEventListener('click',e=>{if(e.target.tagName==='A')mnav.classList.add('hidden')});
-
-    // language (supports html content via data-*-html)
-    let lang='en';
-    const langBtn=document.getElementById('langBtn');
-    const transEls=Array.from(document.querySelectorAll('[data-en],[data-kr],[data-en-html],[data-kr-html]'));
-    function applyLang(){
-      transEls.forEach(el=>{
-        const htmlKey=(lang==='en')?'data-en-html':'data-kr-html';
-        const textKey=(lang==='en')?'data-en':'data-kr';
-        const html=el.getAttribute(htmlKey);
-        const txt=el.getAttribute(textKey);
-        if(html){el.innerHTML=html;}
-        else if(txt){el.textContent=txt;}
-      });
-      langBtn.textContent=(lang==='en')?'한국어':'English';
-      document.documentElement.lang=(lang==='en')?'en':'ko';
+    // header style on scroll
+    var hdr = document.getElementById('hdr');
+    function onScroll() {
+      if (window.scrollY > 40) hdr.classList.add('solid');
+      else hdr.classList.remove('solid');
     }
-    langBtn.addEventListener('click',()=>{lang=(lang==='en')?'kr':'en';applyLang()});
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // mobile menu
+    var menuBtn = document.getElementById('menuBtn');
+    var mnav = document.getElementById('mnav');
+    menuBtn.addEventListener('click', function () {
+      var open = mnav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+      if (open) hdr.classList.add('solid');
+      else onScroll();
+    });
+    mnav.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') { mnav.classList.remove('open'); onScroll(); }
+    });
+
+    // language toggle (data-en / data-kr, html variants via data-*-html)
+    var lang = localStorage.getItem('sc-lang');
+    if (!lang) lang = (navigator.language || '').toLowerCase().indexOf('ko') === 0 ? 'kr' : 'en';
+    var langBtn = document.getElementById('langBtn');
+    var transEls = Array.prototype.slice.call(document.querySelectorAll('[data-en],[data-kr],[data-en-html],[data-kr-html]'));
+    function applyLang() {
+      transEls.forEach(function (el) {
+        var htmlKey = (lang === 'en') ? 'data-en-html' : 'data-kr-html';
+        var textKey = (lang === 'en') ? 'data-en' : 'data-kr';
+        var html = el.getAttribute(htmlKey);
+        var txt = el.getAttribute(textKey);
+        if (html) el.innerHTML = html;
+        else if (txt) el.textContent = txt;
+      });
+      langBtn.textContent = (lang === 'en') ? '한국어' : 'English';
+      document.documentElement.lang = (lang === 'en') ? 'en' : 'ko';
+      localStorage.setItem('sc-lang', lang);
+    }
+    langBtn.addEventListener('click', function () {
+      lang = (lang === 'en') ? 'kr' : 'en';
+      applyLang();
+    });
     applyLang();
+
+    // active nav highlight
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll('nav.main a'));
+    var sections = navLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+    function highlight() {
+      var pos = window.scrollY + 120;
+      var idx = 0;
+      sections.forEach(function (s, i) { if (s && s.offsetTop <= pos) idx = i; });
+      navLinks.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+    }
+    window.addEventListener('scroll', highlight, { passive: true });
+    highlight();
+
+    // reveal on scroll
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
   </script>
 </body>
 </html>
